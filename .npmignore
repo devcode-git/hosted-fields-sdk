@@ -1,0 +1,6 @@
+src
+*.tgz
+.eslintrc
+.npmrc
+.babelrc
+yarn.lock
