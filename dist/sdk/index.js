@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.HostedField = undefined;
+exports.HostedFields = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -51,9 +51,9 @@ function setup(config) {
     initIframes();
 }
 
-function pay() {
+function get() {
     targets.forEach(function (target) {
-        target.target.postMessage({ action: _actions.actions.pay, merchantId: merchantId, id: target.id }, '*');
+        target.target.postMessage({ action: _actions.actions.get, merchantId: merchantId, id: target.id }, '*');
     });
 }
 
@@ -71,7 +71,7 @@ function eventHandler($event) {
             sendCallback();
             break;
         case _actions.actions.formSubmit:
-            pay();
+            get();
             break;
     }
 }
@@ -104,16 +104,16 @@ function sendCallback() {
 
 function initIframe(field) {
     var iframe = document.createElement('iframe');
-    iframe.id = 'paymentiq-hosted-field-' + field.id;
-    iframe.name = 'paymentiq-hosted-field-' + field.id;
+    iframe.id = 'hosted-field-' + field.id;
+    iframe.name = 'hosted-field-' + field.id;
 
     // This is hostedfieldsurl
     iframe.src = hostedfieldsurl + '?mid=' + merchantId;
     var container = document.querySelector(el);
 
     var iframeContainerEl = document.createElement('div');
-    iframeContainerEl.id = 'hosted-input-' + field.id;
-    iframeContainerEl.className = 'hosted-input';
+    iframeContainerEl.id = 'hosted-field-container-' + field.id;
+    iframeContainerEl.className = 'hosted-field-container';
     iframeContainerEl.appendChild(iframe);
 
     container.appendChild(iframeContainerEl);
@@ -140,9 +140,9 @@ function createIframeProxy(field, target) {
     }, '*');
 }
 
-var HostedField = exports.HostedField = {
+var HostedFields = exports.HostedFields = {
     // Setup hosted fields
     setup: setup,
     // Get the data from the hosted fields.
-    pay: pay
+    get: get
 };

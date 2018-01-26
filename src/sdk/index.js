@@ -35,9 +35,9 @@ function setup (config) {
     initIframes();
 }
 
-function pay () {
+function get () {
     targets.forEach((target) => {
-        target.target.postMessage({action: actions.pay, merchantId: merchantId, id: target.id}, '*');
+        target.target.postMessage({action: actions.get, merchantId: merchantId, id: target.id}, '*');
     })
 }
 
@@ -55,7 +55,7 @@ function eventHandler ($event) {
             sendCallback()
             break;
         case actions.formSubmit:
-            pay()
+            get()
             break;
     }
 }
@@ -84,16 +84,16 @@ function sendCallback () {
 
 function initIframe (field) {
     var iframe = document.createElement('iframe');
-    iframe.id = 'paymentiq-hosted-field-' + field.id;
-    iframe.name = 'paymentiq-hosted-field-' + field.id;
+    iframe.id = 'hosted-field-' + field.id;
+    iframe.name = 'hosted-field-' + field.id;
 
     // This is hostedfieldsurl
     iframe.src = hostedfieldsurl + '?mid=' + merchantId;
     var container = document.querySelector(el);
 
     var iframeContainerEl = document.createElement('div');
-    iframeContainerEl.id = 'hosted-input-' + field.id
-    iframeContainerEl.className = 'hosted-input'
+    iframeContainerEl.id = 'hosted-field-container-' + field.id
+    iframeContainerEl.className = 'hosted-field-container'
     iframeContainerEl.appendChild(iframe)
 
     container.appendChild(iframeContainerEl);
@@ -120,9 +120,9 @@ function createIframeProxy (field, target) {
     }, '*');
 }
 
-export const HostedField = {
+export const HostedFields = {
     // Setup hosted fields
     setup,
     // Get the data from the hosted fields.
-    pay
+    get
 };
