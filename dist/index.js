@@ -4,11 +4,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _HostedField = require("./sdk/HostedField");
+var _sdk = require("./sdk");
 
 Object.defineProperty(exports, "HostedField", {
   enumerable: true,
   get: function get() {
-    return _HostedField.HostedField;
+    return _sdk.HostedField;
   }
 });

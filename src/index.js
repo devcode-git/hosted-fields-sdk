@@ -1,1 +1,1 @@
-export { HostedField } from "./sdk/HostedField"
+export { HostedField } from "./sdk"
