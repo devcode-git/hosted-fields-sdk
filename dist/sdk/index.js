@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.pay = exports.setup = undefined;
+exports.HostedField = undefined;
 
 var _extends2 = require('babel-runtime/helpers/extends');
 
@@ -140,5 +140,9 @@ function createIframeProxy(field, target) {
     }, '*');
 }
 
-exports.setup = setup;
-exports.pay = pay;
+var HostedField = exports.HostedField = {
+    // Setup hosted fields
+    setup: setup,
+    // Get the data from the hosted fields.
+    pay: pay
+};

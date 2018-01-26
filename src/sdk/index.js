@@ -120,7 +120,7 @@ function createIframeProxy (field, target) {
     }, '*');
 }
 
-export {
+export const HostedField = {
     // Setup hosted fields
     setup,
     // Get the data from the hosted fields.
