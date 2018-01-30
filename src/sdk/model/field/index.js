@@ -28,9 +28,9 @@ export class Field {
  * The different field types..
  */
 export const FieldTypeS = {
-  TEXT,
-  NUMBER,
-  CVV,
-  CREDITCARD_NUMBER,
-  EXPIRY_MM_YYYY
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  CVV: 'CVV',
+  CREDITCARD_NUMBER: 'CREDITCARD_NUMBER',
+  EXPIRY_MM_YYYY: 'EXPIRY_MM_YYYY'
 }

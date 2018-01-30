@@ -48,9 +48,9 @@ exports.Field = function Field(type, id, name, label) {
 
 
 var FieldTypeS = exports.FieldTypeS = {
-  TEXT: TEXT,
-  NUMBER: NUMBER,
-  CVV: CVV,
-  CREDITCARD_NUMBER: CREDITCARD_NUMBER,
-  EXPIRY_MM_YYYY: EXPIRY_MM_YYYY
+  TEXT: 'TEXT',
+  NUMBER: 'NUMBER',
+  CVV: 'CVV',
+  CREDITCARD_NUMBER: 'CREDITCARD_NUMBER',
+  EXPIRY_MM_YYYY: 'EXPIRY_MM_YYYY'
 };
