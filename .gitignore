@@ -6,5 +6,3 @@ coverage
 npm-debug.log
 *.iml
 *.tgz
-yarn.lock
-package-lock.json

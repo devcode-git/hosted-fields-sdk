@@ -13,12 +13,12 @@ export class Field {
    * @argument required If the field is required or not (default true)
    */
   constructor (type, id, name, label, helpKey = '', errorKey = '', visible = true, required = true) {
+    this.type = type
     this.id = id
     this.name = name
-    this.type = type
     this.label = label
-    this.error = errorKey
     this.helpKey = helpKey
+    this.error = errorKey
     this.visible = visible
     this.required = required
   }
@@ -27,7 +27,7 @@ export class Field {
 /**
  * The different field types..
  */
-export const FieldTypeS = {
+export const FieldTypes = {
   TEXT: 'TEXT',
   NUMBER: 'NUMBER',
   CVV: 'CVV',
