@@ -98,7 +98,7 @@ function sendCallback() {
         }, {});
         // Reset the responses.
         responses = [];
-        callback()(data);
+        callback(data);
     }
 }
 
@@ -120,7 +120,7 @@ function initIframe(field) {
 
     // Get the target window...
     var target = document.querySelector('#' + iframe.id).contentWindow;
-    // Attach onload event listener to iframe so we can send the 
+    // Attach onload event listener to iframe so we can send the
     // setupContent event when iframe is fully loaded.
     iframe.onload = createIframeProxy.bind(this, field, target);
     return {

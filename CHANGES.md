@@ -1,3 +1,6 @@
+#### 1.0.4
+- Forgot the build the previous version (no update to dist)
+
 #### 1.0.3
 - Bugfix: form callback didn't send formData
 
