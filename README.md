@@ -1,4 +1,3 @@
-
 # Hosted fields sdk
 
 Hosted fields SDK is a toolkit that allows you generate a form/set of fields.
