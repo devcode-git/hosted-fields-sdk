@@ -281,11 +281,11 @@ let fields = fieldConfig.map(conf => {
     )
 })
 
-// And finally set the up
+// And finally the setup
 
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: "http://localhost:9998/",
+  hostedfieldsurl: "https://urlToHostedFields.com",
   fields: fields,
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
@@ -295,5 +295,9 @@ HostedFields.setup({
 
 // When you want to fetch the form information:
 HostedFields.get()
+
+Returns an object of key-values for your fields.
+Fields that are to be encrypted (Card number + CVV) will return the encrypted value.
+If any errors are detected, an error message will be returned as the value of that field, prefixed with ERROR
 
 ````
