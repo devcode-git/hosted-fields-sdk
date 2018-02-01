@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FieldTypeS = exports.Field = undefined;
+exports.FieldTypes = exports.Field = undefined;
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -16,7 +16,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 var Field =
 /**
- * @argument type The type of field. ex: TEXT, NUMBER (@see FieldTypeS)
+ * @argument type The type of field. ex: TEXT, NUMBER (@see FieldTypes)
  * @argument id The html id of the field.
  * @argument name The name of the id and the name of the returned property when retriving the hosted field data.
  * @argument label The text label of the field
@@ -32,12 +32,12 @@ exports.Field = function Field(type, id, name, label) {
   var required = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : true;
   (0, _classCallCheck3.default)(this, Field);
 
+  this.type = type;
   this.id = id;
   this.name = name;
-  this.type = type;
   this.label = label;
-  this.error = errorKey;
   this.helpKey = helpKey;
+  this.error = errorKey;
   this.visible = visible;
   this.required = required;
 };
@@ -47,7 +47,7 @@ exports.Field = function Field(type, id, name, label) {
  */
 
 
-var FieldTypeS = exports.FieldTypeS = {
+var FieldTypes = exports.FieldTypes = {
   TEXT: 'TEXT',
   NUMBER: 'NUMBER',
   CVV: 'CVV',

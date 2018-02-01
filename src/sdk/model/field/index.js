@@ -3,7 +3,7 @@
  */
 export class Field {
   /**
-   * @argument type The type of field. ex: TEXT, NUMBER (@see FieldTypeS)
+   * @argument type The type of field. ex: TEXT, NUMBER (@see FieldTypes)
    * @argument id The html id of the field.
    * @argument name The name of the id and the name of the returned property when retriving the hosted field data.
    * @argument label The text label of the field
