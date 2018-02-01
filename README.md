@@ -1,15 +1,12 @@
 # Hosted fields sdk
 
-Hosted fields SDK is a toolkit that allows you generate a form/set of fields.
+Hosted fields SDK is a toolkit that allows you generate a form/set of fields. It is published as a node-module to the public [npm registry](https://www.npmjs.com/package/hosted-fields-sdk).
+
 
 ```
-  npm i bambora-hosted-fields-sdk --save
+  npm i hosted-fields-sdk --save
 
-  import {
-	  HostedFields,
-	  Field,
-	  FieldType
-  } from 'bambora-hosted-fields-sdk'
+  import { HostedFields, Field, FieldType } from 'hosted-fields-sdk'
 ```
 
 The SDK will expose three functions
@@ -23,7 +20,7 @@ You define what fields you wish to include in your form yourself. The SDK gives 
 
 ````
 {
-	id: id,
+    id: id,
     name: name,
     type: type,
     label: label,
@@ -55,8 +52,8 @@ Setup is the first function you will call. It takes a config-object as its only 
 {
     merchantId: 123456789,
     hostedfieldsurl: http://urlToHostedFields.com,
-    fields: [], //your fields genereated using the Field-constructor
-    service: 'some service',
+    fields: my_fields, //fields you've generated using the Field-constructor
+    service: 'your_service',
     styles: 'any custom styles you wish to include',
     callback: someFunction,
     el = A domElement to render the hosted fields in
@@ -76,33 +73,6 @@ iframe.src = hostedfieldsurl + '?mid=' + merchantId;
 var container = document.querySelector(el);
 ````
 Lastly eventListener are registered to the iframe so that it picks up postMessage events.
-
-Also, each iframe will send a postMessage to the parent window when its loaded. carrying:
-
-````
-{
-    action: actions.setupContent,
-    styles: styles,
-    fields: fields,
-    service: service
-}, '*'
-````
-
-Each field will also send up a few actions using postMessage:
-
-````
-	// Event is emitted when input is done.
-    get: 'get',
-
-    // Event is emitted when the iframe is created and the content 	will be rendered.
-    setupContent: 'setupContent',
-
-    // Received when with the hosted field data.
-    formData: 'formData',
-
-    // Recvied when enter was pressed in the hosted fields to submit the form.
-    formSubmit: 'formSubmit'
-````
 
 #### Styling
 Styling will mainly be handled buy the application using the hosted-fields. Each field will have some basic styling but the layout will have to be supplied.
@@ -143,17 +113,17 @@ let fieldConfig = [
 import { Field } from 'hosted-fields-sdk'
 
 let fields = fieldConfig.map(conf => {
-      return new Field(
-          conf.type,
-          conf.id,
-          conf.name,
-          conf.label,
-          conf.error,
-          conf.helpKey,
-          conf.visible,
-          conf.required
-        )
-    })
+  return new Field(
+      conf.type,
+      conf.id,
+      conf.name,
+      conf.label,
+      conf.error,
+      conf.helpKey,
+      conf.visible,
+      conf.required
+  )
+})
 ````
 
 **Call the setup function**
@@ -171,7 +141,7 @@ HostedFields.setup({
 
 **Adding the callback handler and including the domElement stated as 'el'**
 ````
-<--index.html--->
+<!--index.html--->
 <html>
 	<head></head>
 	<body onload=setupHostedFields()>
@@ -203,7 +173,7 @@ Each field will get wrapped by a div with the class *.hosted-field-container* an
 
 By adding the following styles a basic layout will be created:
 ````
-*style.css*
+//style.css
 
 #hosted-fields-wrapper {
    width: 600px;
