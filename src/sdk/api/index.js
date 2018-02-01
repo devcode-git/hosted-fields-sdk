@@ -68,17 +68,17 @@ function sendCallback () {
     targetIds.forEach((targetId) => {
         includesAllIds = responseIds.includes(targetId);
     });
-    
+
     // Check that we have gotten responses from all hosted fields.
     // Before sending the callback.
     if (includesAllIds) {
-        const data = responses.reduce((formData, response) => { 
-          formData = { ...formData, ...response.data }; 
-          return formData; 
+        const data = responses.reduce((formData, response) => {
+          formData = { ...formData, ...response.data };
+          return formData;
         }, {});
         // Reset the responses.
         responses = []
-        callback()(data);
+        callback(data);
     }
 }
 
@@ -100,7 +100,7 @@ function initIframe (field) {
 
     // Get the target window...
     var target = document.querySelector('#'+iframe.id).contentWindow;
-    // Attach onload event listener to iframe so we can send the 
+    // Attach onload event listener to iframe so we can send the
     // setupContent event when iframe is fully loaded.
     iframe.onload = createIframeProxy.bind(this, field, target)
     return {
