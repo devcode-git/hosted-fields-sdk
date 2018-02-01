@@ -143,11 +143,11 @@ HostedFields.setup({
 ````
 <!--index.html--->
 <html>
-	<head></head>
-	<body onload=setupHostedFields()>
-		<button onClick=fetchFormData()>Get form data</button>
-		<div id="hosted-fields-wrapper"></div>
-	</body>
+    <head></head>
+    <body onload=setupHostedFields()>
+        <button onClick=fetchFormData()>Get form data</button>
+	<div id="hosted-fields-wrapper"></div>
+    </body>
 </html>
 ````
 
@@ -156,15 +156,15 @@ HostedFields.setup({
 import { HostedFields, Field, FieldTypes } from 'hosted-fields-sdk'
 
 const setupHostedFields = () => {
-	HostedFields.setup(...the setup config)
+    HostedFields.setup(...the setup config)
 }
 
 const formCallbackHandler = (formData) => {
-	// do stuff
+    // do stuff
 }
 
 const fetchFormData = () => {
-	HostedFields.get() //will trigger formCallbackHandler
+    HostedFields.get() //will trigger formCallbackHandler
 }
 ````
 
