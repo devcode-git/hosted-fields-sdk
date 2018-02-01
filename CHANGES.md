@@ -1,3 +1,6 @@
+#### 1.0.3
+- Bugfix: form callback didn't send formData
+
 #### 1.0.2
 - Updated readme
 
