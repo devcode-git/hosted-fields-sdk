@@ -55,10 +55,13 @@ Setup is the first function you will call. It takes a config-object as its only 
     fields: my_fields, //fields you've generated using the Field-constructor
     service: 'your_service',
     styles: 'any custom styles you wish to include',
-    callback: someFunction,
+    callback: () => someFunction,
     el = A domElement to render the hosted fields in
 }
 ````
+NOTE:
+Callback must be a function that returns a function.
+This allows you to run for example your own validation on the values before you pass in your callback that will handle your formData.
 
 Setup will first set the base values. After that it will loop through the fields you've passed in and create an iframe for each one.
 
@@ -134,7 +137,7 @@ HostedFields.setup({
   fields: fields,
   service: 'some service',
   styles: '* .hosted-input-container .input-container input { color: green; }',
-  callback: formCallbackHandler,
+  callback: () => formCallbackHandler,
   el: '#hosted-fields-wrapper'
 })
 ````
@@ -259,7 +262,7 @@ HostedFields.setup({
   fields: fields,
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
-  callback: formCallbackHandler,
+  callback: () => formCallbackHandler,
   el: '#hosted-fields-wrapper'
 })
 
