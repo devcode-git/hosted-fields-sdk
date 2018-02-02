@@ -1,3 +1,6 @@
+#### 1.0.6
+- Updated readme
+
 #### 1.0.5
 - Reverted back so callback of formData is callback()(formData)
 
