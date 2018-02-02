@@ -1,3 +1,6 @@
+#### 1.0.5
+- Reverted back so callback of formData is callback()(formData)
+
 #### 1.0.4
 - Forgot the build the previous version (no update to dist)
 

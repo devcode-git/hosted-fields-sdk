@@ -78,7 +78,7 @@ function sendCallback () {
         }, {});
         // Reset the responses.
         responses = []
-        callback(data);
+        callback()(data);
     }
 }
 
