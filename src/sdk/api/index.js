@@ -30,7 +30,7 @@ function setup (config) {
     service = config.service;
     styles = config.styles;
     callback = config.callback;
-    el = config.el
+    el = config.el;
 
     initIframes();
 }
@@ -39,6 +39,22 @@ function get () {
     targets.forEach((target) => {
         target.target.postMessage({action: actions.get, merchantId: merchantId, id: target.id}, '*');
     })
+}
+
+function reset () {
+  targets = []
+}
+
+function destroyContent () {
+  merchantId = null
+  fields = null;
+  hostedfieldsurl = null
+  service = null
+  styles = null
+  targets = []
+  responses = []
+  el = null
+  callback = null
 }
 
 function initIframes () {
@@ -124,5 +140,7 @@ export const HostedFields = {
     // Setup hosted fields
     setup,
     // Get the data from the hosted fields.
-    get
+    get,
+    // reset the current targets
+    reset
 };

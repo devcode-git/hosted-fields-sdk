@@ -45,6 +45,7 @@ The type-property can be one of the following:
 HostedFields in turn will expose two functions
 * setup
 * get
+* reset
 
 Setup is the first function you will call. It takes a config-object as its only parameter:
 
@@ -64,6 +65,10 @@ Callback must be a function that returns a function.
 This allows you to run for example your own validation on the values before you pass in your callback that will handle your formData.
 
 Setup will first set the base values. After that it will loop through the fields you've passed in and create an iframe for each one.
+
+**reset**
+
+If you wish to reset the currently rendered iframes (fields) you can call HostedFields.reset() before running a new setup()
 
 ````
 //Each iframe will get an id 'hosted-field-' + the id of the field

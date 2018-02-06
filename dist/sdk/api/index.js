@@ -57,6 +57,22 @@ function get() {
     });
 }
 
+function reset() {
+    targets = [];
+}
+
+function destroyContent() {
+    merchantId = null;
+    fields = null;
+    hostedfieldsurl = null;
+    service = null;
+    styles = null;
+    targets = [];
+    responses = [];
+    el = null;
+    callback = null;
+}
+
 function initIframes() {
     targets = targets.concat(fields.map(function (field) {
         return initIframe(field);
@@ -144,5 +160,7 @@ var HostedFields = exports.HostedFields = {
     // Setup hosted fields
     setup: setup,
     // Get the data from the hosted fields.
-    get: get
+    get: get,
+    // reset the current targets
+    reset: reset
 };

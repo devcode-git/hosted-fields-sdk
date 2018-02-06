@@ -1,3 +1,6 @@
+#### 1.0.7
+- Added reset() as a method to HostedFields. Resets the targets to an empty array. Necessary to run before running a new setupContent to avoid duplicates.
+
 #### 1.0.6
 - Updated readme
 
