@@ -1,3 +1,6 @@
+#### 1.0.8
+- Reset shouldn't be an action, it should only be a method that the parent-application can call
+
 #### 1.0.7
 - Added reset() as a method to HostedFields. Resets the targets to an empty array. Necessary to run before running a new setupContent to avoid duplicates.
 
