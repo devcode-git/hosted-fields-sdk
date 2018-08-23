@@ -25,7 +25,7 @@
     "eslint": "^5.4.0",
     "jasmine-core": "^2.5.2",
     "ncp": "^2.0.0",
-    "recursive-uglifyjs": "^1.0.0",
+    "recursive-uglifyjs": "0.2.0",
     "rimraf": "^2.5.4",
     "watchify": "^3.7.0"
   },
@@ -34,9 +34,12 @@
     "url": "git+https://github.com/devcode-git/hosted-fields-sdk.git"
   },
   "keywords": [
-    "UI"
+    "UI",
+    "Payments",
+    "Bambora",
+    "Devcode"
   ],
-  "author": "jonas.biberg@bambora.com",
+  "author": "simon.solders@bambora.com",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/devcode-git/hosted-fields-sdk/issues"
