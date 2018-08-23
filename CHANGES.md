@@ -1,3 +1,6 @@
+#### 1.0.9
+- Tabindex -1 on the iframe-elements so that focus is set to input field right away instead of the iframe-element.
+
 #### 1.0.8
 - Reset shouldn't be an action, it should only be a method that the parent-application can call
 

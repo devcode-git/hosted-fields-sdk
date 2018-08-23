@@ -122,6 +122,7 @@ function initIframe(field) {
     var iframe = document.createElement('iframe');
     iframe.id = 'hosted-field-' + field.id;
     iframe.name = 'hosted-field-' + field.id;
+    iframe.tabindex = '-1';
 
     // This is hostedfieldsurl
     iframe.src = hostedfieldsurl + '?mid=' + merchantId;
