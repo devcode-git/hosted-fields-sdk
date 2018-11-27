@@ -21,7 +21,7 @@
     "babel-preset-es2015": "latest",
     "babel-preset-stage-2": "^6.24.1",
     "babelify": "^7.3.0",
-    "browserify": "^13.1.0",
+    "browserify": "^16.2.3",
     "eslint": "^5.4.0",
     "jasmine-core": "^2.5.2",
     "ncp": "^2.0.0",
