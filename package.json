@@ -1,6 +1,6 @@
 {
   "name": "hosted-fields-sdk",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "Hosted fields sdk",
   "main": "dist/index.js",
   "scripts": {

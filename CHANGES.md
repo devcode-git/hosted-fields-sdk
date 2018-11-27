@@ -1,3 +1,6 @@
+#### 1.0.13
+- Upgraded browserify due to a security alert of a sub-dependecy
+
 #### 1.0.9
 - Tabindex -1 on the iframe-elements so that focus is set to input field right away instead of the iframe-element.
 
