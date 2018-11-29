@@ -1,3 +1,6 @@
+#### 1.0.14
+- Allow focus to be set to iframes (need to allow tabbing into inputs for example)
+
 #### 1.0.13
 - Upgraded browserify due to a security alert of a sub-dependecy
 

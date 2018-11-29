@@ -122,7 +122,7 @@ function initIframe(field) {
     var iframe = document.createElement('iframe');
     iframe.id = 'hosted-field-' + field.id;
     iframe.name = 'hosted-field-' + field.id;
-    iframe.tabIndex = '-1';
+    // iframe.tabIndex = '-1'; // This disabled the possibility to set focus on the frame and any of its contents.
 
     // This is hostedfieldsurl
     iframe.src = hostedfieldsurl + '?mid=' + merchantId;
