@@ -27,9 +27,21 @@ You define what fields you wish to include in your form yourself. The SDK gives 
     error: errorKey,
     helpKey: helpKey,
     visible: visible,
-    required: required
+    required: required,
+    noAttributeValueFormatting: true, (not mandatory)
+    autocomplete: autocomplete
 }
+
 ````
+
+### noAttributeValueFormatting
+In order to make input fields work with autofill for creditcard information, certain attributes are needed on the fields.
+Due to backwards compability, the flag noAttributeValueFormatting needs to be set to true.
+
+This will set the id and name attributes to the actual value you pass in for each field.
+You can also set autocomplete to the desired value according to the autofill specs
+
+https://developers.google.com/web/updates/2015/06/checkout-faster-with-autofill
 
 The type-property can be one of the following:
 ````
