@@ -34,7 +34,7 @@ You define what fields you wish to include in your form yourself. The SDK gives 
 
 ````
 
-### noAttributeValueFormatting
+#### noAttributeValueFormatting
 In order to make input fields work with autofill for creditcard information, certain attributes are needed on the fields.
 Due to backwards compability, the flag noAttributeValueFormatting needs to be set to true.
 
@@ -43,7 +43,7 @@ You can also set autocomplete to the desired value according to the autofill spe
 
 https://developers.google.com/web/updates/2015/06/checkout-faster-with-autofill
 
-The type-property can be one of the following:
+#### The type-property can be one of the following:
 ````
   TEXT: 'TEXT',
   NUMBER: 'NUMBER',
