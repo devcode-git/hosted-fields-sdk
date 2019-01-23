@@ -82,8 +82,11 @@ Setup will first set the base values. After that it will loop through the fields
 
 **get**
 
-If you want to get the encrypted values from the fields you can call HostedFields.get().
-This will trigger the supplied callback-function to be called with the values for each field.
+If you want to get the encrypted values from the fields you can call
+```
+HostedFields.get()
+```
+This will trigger the supplied callback-function registered in HostedFields.setup() to be called with the values for each field.
 Note that the callback function will also be called if the user presses enter in any of the fields.
 
 ```
