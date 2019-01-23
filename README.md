@@ -54,10 +54,12 @@ https://developers.google.com/web/updates/2015/06/checkout-faster-with-autofill
 
 
 #### HostedFields
-HostedFields in turn will expose two functions
+HostedFields in turn will expose three functions
 * setup
 * get
 * reset
+
+**setup**
 
 Setup is the first function you will call. It takes a config-object as its only parameter:
 
@@ -78,9 +80,26 @@ This allows you to run for example your own validation on the values before you 
 
 Setup will first set the base values. After that it will loop through the fields you've passed in and create an iframe for each one.
 
+**get**
+
+If you want to get the encrypted values from the fields you can call HostedFields.get().
+This will trigger the supplied callback-function to be called with the values for each field.
+Note that the callback function will also be called if the user presses enter in any of the fields.
+
+```
+{
+   cardHolder: 'Admiral Ackbar',
+   encCreditcardNumber: 'ENCRYPTED_STRING',
+   encCvv: 'ENCRYPTED_STRING',
+   expiryMonth: '05',
+   expiryYear: '2025'
+}
+```
+
 **reset**
 
-If you wish to reset the currently rendered iframes (fields) you can call HostedFields.reset() before running a new setup()
+If you wish to reset the currently rendered iframes (fields) you can call HostedFields.reset() before running a new setup().
+This can be required if your page that contains the fields gets re-rendered. In that case you will have registered duplicates of the fields. So it's a good idea to call HostedFields.reset() on a beforeDestroy-hook if you are using Vue or React.
 
 ````
 //Each iframe will get an id 'hosted-field-' + the id of the field
@@ -94,7 +113,7 @@ var container = document.querySelector(el);
 ````
 Lastly eventListener are registered to the iframe so that it picks up postMessage events.
 
-#### Styling
+## Styling
 Styling will mainly be handled buy the application using the hosted-fields. Each field will have some basic styling but the layout will have to be supplied.
 
 Each field can have an appended string of css. This will be added to each field's iframe head as a style-tag.
