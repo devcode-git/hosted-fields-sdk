@@ -68,7 +68,7 @@ Setup is the first function you will call. It takes a config-object as its only 
     merchantId: 123456789,
     hostedfieldsurl: http://urlToHostedFields.com,
     fields: my_fields, //fields you've generated using the Field-constructor
-    service: 'your_service',
+    service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
     styles: 'any custom styles you wish to include',
     callback: () => someFunction,
     el = A domElement to render the hosted fields in
