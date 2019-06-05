@@ -1,3 +1,6 @@
+#### 1.0.15
+- Upgraded depedencies that reported security alerts (js-yaml, jquery)
+
 #### 1.0.14
 - Allow focus to be set to iframes (need to allow tabbing into inputs for example)
 
