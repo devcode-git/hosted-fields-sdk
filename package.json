@@ -1,17 +1,13 @@
 {
   "name": "hosted-fields-sdk",
-  "version": "1.0.15",
+  "version": "1.1.0",
   "description": "Hosted fields sdk",
   "main": "dist/index.js",
   "scripts": {
     "test": "test",
-    "build": "rimraf dist && npm run build:js && npm run uglify && npm run copy",
+    "build": "rimraf dist && npm run build:js && npm run uglify",
     "build:js": "eslint src && babel src --out-dir dist",
-    "copy": "ncp dist .",
     "uglify": "recursive-uglifyjs dist"
-  },
-  "dependencies": {
-    "jquery": "^3.4.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

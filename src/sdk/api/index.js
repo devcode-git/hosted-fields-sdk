@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { actions } from './actions';
 
 // The payment iq mid
@@ -20,6 +19,11 @@ var el;
 // Method to call when all responses from hosted fields
 // has been collected.
 var callback;
+// Method to call when all responses from hosted fields
+// has been loaded
+var onLoadCallback;
+// Keep track of number of loaded fields
+var onLoadCounter = 0;
 // This window.
 var window = document.parentWindow || document.defaultView;
 
@@ -30,6 +34,7 @@ function setup (config) {
     service = config.service;
     styles = config.styles;
     callback = config.callback;
+    onLoadCallback = config.onLoadCallback;
     el = config.el;
 
     initIframes();
@@ -55,6 +60,8 @@ function destroyContent () {
   responses = []
   el = null
   callback = null
+  onLoadCallback = null
+  onLoadCounter = 0
 }
 
 function initIframes () {
@@ -126,15 +133,21 @@ function initIframe (field) {
 }
 
 function createIframeProxy (field, target) {
-    var fields = {};
-    fields[field.name] = field;
+    var fieldsObj = {};
+    fieldsObj[field.name] = field;
     window.addEventListener("message", eventHandler, false)
     target.postMessage({
         action: actions.setupContent,
         styles: styles,
-        fields: fields,
+        fields: fieldsObj,
         service: service
     }, '*');
+    
+    onLoadCounter++
+    if (onLoadCounter === fields.length && onLoadCallback) {
+        onLoadCallback()()
+        onLoadCounter = 0
+    }
 }
 
 export const HostedFields = {

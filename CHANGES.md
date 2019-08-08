@@ -1,3 +1,8 @@
+#### 1.1.0
+- Removed jquery as dependency (not used enough to warrant its inclusion)
+- Added fields onload callback
+- Updated dependencies
+
 #### 1.0.15
 - Upgraded depedencies that reported security alerts (js-yaml, jquery)
 
