@@ -2,6 +2,7 @@
 - Removed jquery as dependency (not used enough to warrant its inclusion)
 - Added fields onload callback
 - Updated dependencies
+- Bugfix to build step - caused package to be a lot bigger than it had to be
 
 #### 1.0.15
 - Upgraded depedencies that reported security alerts (js-yaml, jquery)

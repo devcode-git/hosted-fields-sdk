@@ -71,11 +71,12 @@ Setup is the first function you will call. It takes a config-object as its only 
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
     styles: 'any custom styles you wish to include',
     callback: () => someFunction,
+    onLoadCallback: () => someFunction
     el = A domElement to render the hosted fields in
 }
 ````
 
-Possible values for hostedfields:
+Possible values for hostedfieldsurl:
 
 prod: https://hostedpages.paymentiq.io/index.html
 
@@ -184,6 +185,7 @@ HostedFields.setup({
   service: 'some service',
   styles: '* .hosted-input-container .input-container input { color: green; }',
   callback: () => formCallbackHandler,
+  onLoadCallback: () => formHasLoadedCallbackHandler,
   el: '#hosted-fields-wrapper'
 })
 ````
@@ -210,6 +212,10 @@ const setupHostedFields = () => {
 
 const formCallbackHandler = (formData) => {
     // do stuff
+}
+
+const formHasLoadedCallbackHandler = () => {
+    // all hosted fields has loaded
 }
 
 const fetchFormData = () => {
@@ -309,6 +315,7 @@ HostedFields.setup({
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
   callback: () => formCallbackHandler,
+  onLoadCallback: () => formHasLoadedCallbackhandler
   el: '#hosted-fields-wrapper'
 })
 
