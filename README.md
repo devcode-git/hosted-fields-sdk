@@ -190,6 +190,13 @@ HostedFields.setup({
 })
 ````
 
+**callback**
+Pass in a function that you want to be called when the values from the fields are fetched.
+
+**onLoadCallback**
+Optionally, you can pass in a function that will be called when all the fields you have passed in have
+loaded, allowing you to display some kind of loader until this callback has been triggered.
+
 **Adding the callback handler and including the domElement stated as 'el'**
 ````
 <!--index.html--->
