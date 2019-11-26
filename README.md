@@ -230,6 +230,15 @@ const fetchFormData = () => {
 }
 ````
 
+**Styling rules**
+You can set comments in your custom css style file to render the input in a certain way.
+
+Available rules / comments: (Copy/paste the comment in it's exact form, one extra whitespace won't make it work.)
+````
+/* RenderAsFloatingLabel */
+`````
+The RenderAsFloatingLabel rule will render the input placeholder as a floating label instead of a fixed one.
+
 **Basic styling**
 Each field will get wrapped by a div with the class *.hosted-field-container* and an id suffixed with the stated id for that field.
 
