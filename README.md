@@ -28,7 +28,7 @@ You define what fields you wish to include in your form yourself. The SDK gives 
     helpKey: helpKey,
     visible: visible,
     required: required,
-    noAttributeValueFormatting: true, (not mandatory)
+    noAttributeValueFormatting: true, (not mandatory, defaults to false)
     autocomplete: autocomplete
 }
 
@@ -42,6 +42,12 @@ This will set the id and name attributes to the actual value you pass in for eac
 You can also set autocomplete to the desired value according to the autofill specs
 
 https://developers.google.com/web/updates/2015/06/checkout-faster-with-autofill
+
+Recommended values for autocomplete are:
+
+Creditcard number: `cc-number`
+CVC: `cc-csc`
+Expiry: `cc-exp`
 
 #### The type-property can be one of the following:
 ````
@@ -150,7 +156,9 @@ let fieldConfig = [
        error: 'First name is not valid',
        helpKey: 'First name',
        visible: true,
-       required: true
+       required: true,
+       noAttributeValueFormatting: true,
+       autocomplete: 'firstname'
    },
    {
        type: FieldTypes.TEXT,
@@ -160,7 +168,9 @@ let fieldConfig = [
        error: 'Last name is not invalid',
        helpKey: 'Last name',
        visible: true,
-       required: true
+       required: true,
+       noAttributeValueFormatting: true,
+       autocomplete: 'lastname'
    }
 ]
 ````
@@ -178,7 +188,9 @@ let fields = fieldConfig.map(conf => {
       conf.error,
       conf.helpKey,
       conf.visible,
-      conf.required
+      conf.required,
+      conf.noAttributeValueFormatting,
+      conf.autocomplete
   )
 })
 ````
@@ -284,7 +296,9 @@ let fieldConfig = [
       error: 'Credit card number is invalid',
       helpKey: 'Credit card',
       visible: true,
-      required: true
+      required: true,
+      noAttributeValueFormatting: true,
+      autocomplete: 'cc-number'
   },
   {
       type: FieldTypes.EXPIRY_MM_YYYY,
@@ -295,16 +309,20 @@ let fieldConfig = [
       helpKey: 'Expire date',
       visible: true,
       required: true
+      noAttributeValueFormatting: true,
+      autocomplete: 'cc-exp'
   },
   {
-	  type: FieldTypes.CVV,
+      type: FieldTypes.CVV,
       id: 'cvv',
       name: 'cvv',
       label: 'CVV',
       error: 'CVV not valid',
       helpKey: 'CVV',
       visible: true,
-      required: true
+      required: true,
+      noAttributeValueFormatting: true,
+      autocomplete: 'cc-csc'
   }
 ]
 
@@ -318,7 +336,9 @@ let fields = fieldConfig.map(conf => {
       conf.error,
       conf.helpKey,
       conf.visible,
-      conf.required
+      conf.required,
+      conf.noAttributeValueFormatting,
+      conf.autocomplete
     )
 })
 
