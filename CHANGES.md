@@ -1,3 +1,7 @@
+#### 1.1.1
+- The Field constructor was missing support for noAttributeValueFormatting and autocomplete
+  Now supports both, noAttributeValueFormatting defaults to false, autocomplete to empty string.
+
 #### 1.1.0
 - Removed jquery as dependency (not used enough to warrant its inclusion)
 - Added fields onload callback

@@ -11,8 +11,10 @@ export class Field {
    * @argument errorKey Message to show if field has errors
    * @argument visible If the field should be visible (default true)
    * @argument required If the field is required or not (default true)
+   * @argument noAttributeValueFormatting Due to backwards compability, the flag noAttributeValueFormatting needs to be set to true to make autofill work
+   * @argument autocomplete What should the field use as autofill value (cc-number, cc-csc, cc-exp)
    */
-  constructor (type, id, name, label, helpKey = '', errorKey = '', visible = true, required = true) {
+  constructor (type, id, name, label, helpKey = '', errorKey = '', visible = true, required = true, noAttributeValueFormatting = false, autocomplete = '') {
     this.type = type
     this.id = id
     this.name = name
@@ -21,6 +23,8 @@ export class Field {
     this.error = errorKey
     this.visible = visible
     this.required = required
+    this.noAttributeValueFormatting = noAttributeValueFormatting
+    this.autocomplete = autocomplete
   }
 }
 
