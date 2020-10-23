@@ -96,8 +96,9 @@ function sendCallback () {
     // Before sending the callback.
     if (includesAllIds) {
         const data = responses.reduce((formData, response) => {
-          formData = { ...formData, ...response.data };
-          return formData;
+          const {errors, ...data} = formData;
+          const {errors: fieldErrors, ...fieldData} = response.data;
+          return {...data, ...fieldData, errors: {...errors, ...fieldErrors}};
         }, {});
         // Reset the responses.
         responses = []
@@ -142,7 +143,7 @@ function createIframeProxy (field, target) {
         fields: fieldsObj,
         service: service
     }, '*');
-    
+
     onLoadCounter++
     if (onLoadCounter === fields.length && onLoadCallback) {
         onLoadCallback()()
