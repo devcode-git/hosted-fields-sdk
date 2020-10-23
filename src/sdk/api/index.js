@@ -85,7 +85,6 @@ function registerSingleIframe () {
 }
 
 function eventHandler ($event) {
-    console.log('SDK EVENT: ', $event.data.action)
     switch ($event.data.action) {
         case actions.formData:
             responses.push({ id: $event.data.id, data: $event.data.formData })
@@ -98,7 +97,6 @@ function eventHandler ($event) {
 }
 
 function sendCallback () {
-    console.log('SEND CALLBACK')
     var responseIds = responses.map((response) => response.id);
     var targetIds = targets.map((target) => target.id);
     if (responseIds.length !== targetIds.length) return;
@@ -151,7 +149,6 @@ function initIframe (field) {
 function createIframeProxy (field, target) {
     var fieldsObj = {};
     fieldsObj[field.name] = field;
-    console.log('NORMAL FLOW: ', fieldsObj)
     window.addEventListener("message", eventHandler, false)
     target.postMessage({
         action: actions.setupContent,
@@ -189,7 +186,6 @@ function initSingleIframe () {
     var target = document.querySelector('#hosted-field-single-iframe').contentWindow;
     // Attach onload event listener to iframe so we can send the
     // setupContent event when iframe is fully loaded.
-    console.log(target)
     iframe.onload = createSingleIframeProxy.bind(this, fields, target)
     return [{
         id: iframe.id, target
