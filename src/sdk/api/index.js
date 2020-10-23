@@ -2,6 +2,8 @@ import { actions } from './actions';
 
 // The payment iq mid
 var merchantId;
+// Return each field as separate iframes or all fields in a single iframe
+var renderMode;
 // List of fields to host
 var fields;
 // Url to the hosted fields
@@ -29,6 +31,7 @@ var window = document.parentWindow || document.defaultView;
 
 function setup (config) {
     merchantId = config.merchantId;
+    renderMode = config.renderMode;
     hostedfieldsurl = config.hostedfieldsurl;
     fields = config.fields;
     service = config.service;
@@ -37,7 +40,14 @@ function setup (config) {
     onLoadCallback = config.onLoadCallback;
     el = config.el;
 
-    initIframes();
+    // Create a single iframe for all the fields (single) or create an iframe per field (multiple)
+    if (renderMode && renderMode === 'single') {
+        // single
+        registerSingleIframe()
+    } else {
+        // mulitple
+        registerIframes();
+    }
 }
 
 function get () {
@@ -64,14 +74,18 @@ function destroyContent () {
   onLoadCounter = 0
 }
 
-function initIframes () {
+function registerIframes () {
     targets = targets.concat(fields.map((field) => {
         return initIframe(field)
     }))
 }
 
-function eventHandler ($event) {
+function registerSingleIframe () {
+    targets = initSingleIframe()
+}
 
+function eventHandler ($event) {
+    console.log('SDK EVENT: ', $event.data.action)
     switch ($event.data.action) {
         case actions.formData:
             responses.push({ id: $event.data.id, data: $event.data.formData })
@@ -84,6 +98,7 @@ function eventHandler ($event) {
 }
 
 function sendCallback () {
+    console.log('SEND CALLBACK')
     var responseIds = responses.map((response) => response.id);
     var targetIds = targets.map((target) => target.id);
     if (responseIds.length !== targetIds.length) return;
@@ -105,6 +120,7 @@ function sendCallback () {
     }
 }
 
+// Sets up a single iframe for each field
 function initIframe (field) {
     var iframe = document.createElement('iframe');
     iframe.id = 'hosted-field-' + field.id;
@@ -135,6 +151,7 @@ function initIframe (field) {
 function createIframeProxy (field, target) {
     var fieldsObj = {};
     fieldsObj[field.name] = field;
+    console.log('NORMAL FLOW: ', fieldsObj)
     window.addEventListener("message", eventHandler, false)
     target.postMessage({
         action: actions.setupContent,
@@ -148,6 +165,52 @@ function createIframeProxy (field, target) {
         onLoadCallback()()
         onLoadCounter = 0
     }
+}
+
+// Sets up a single iframe for each field
+function initSingleIframe () {
+    var iframe = document.createElement('iframe');
+    iframe.id = 'hosted-field-single-iframe';
+    iframe.name = 'hosted-field-single-iframe';
+    // iframe.tabIndex = '-1'; // This disabled the possibility to set focus on the frame and any of its contents.
+
+    // This is hostedfieldsurl
+    iframe.src = hostedfieldsurl + '?mid=' + merchantId;
+    var container = document.querySelector(el);
+
+    var iframeContainerEl = document.createElement('div');
+    iframeContainerEl.id = 'hosted-field-container-single-iframe'
+    iframeContainerEl.className = 'hosted-field-container'
+    iframeContainerEl.appendChild(iframe)
+
+    container.appendChild(iframeContainerEl);
+
+    // Get the target window...
+    var target = document.querySelector('#hosted-field-single-iframe').contentWindow;
+    // Attach onload event listener to iframe so we can send the
+    // setupContent event when iframe is fully loaded.
+    console.log(target)
+    iframe.onload = createSingleIframeProxy.bind(this, fields, target)
+    return [{
+        id: iframe.id, target
+    }]
+}
+
+function createSingleIframeProxy (fields, target) {
+    var fieldsObj = {};
+    fields.forEach(function (field) {
+        fieldsObj[field.name] = field;
+    })
+
+    window.addEventListener("message", eventHandler, false)
+    target.postMessage({
+        action: actions.setupSingleIframeContent,
+        styles: styles,
+        fields: fieldsObj,
+        service: service
+    }, '*');
+    
+    onLoadCallback()()
 }
 
 export const HostedFields = {
