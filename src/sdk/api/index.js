@@ -98,7 +98,12 @@ function sendCallback () {
         const data = responses.reduce((formData, response) => {
           const {errors, ...data} = formData;
           const {errors: fieldErrors, ...fieldData} = response.data;
-          return {...data, ...fieldData, errors: {...errors, ...fieldErrors}};
+          const newData = {...data, ...fieldData};
+          const allErrors = {...errors, ...fieldErrors};
+          if (Object.keys(allErrors).length > 0) {
+            newData.errors = allErrors;
+          }
+          return newData;
         }, {});
         // Reset the responses.
         responses = []
