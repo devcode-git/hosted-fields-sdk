@@ -84,30 +84,30 @@ function eventHandler ($event) {
 }
 
 function sendCallback () {
-    var responseIds = responses.map((response) => response.id);
-    var targetIds = targets.map((target) => target.id);
-    if (responseIds.length !== targetIds.length) return;
-    var includesAllIds = true;
+    var responseIds = responses.map((response) => response.id)
+    var targetIds = targets.map((target) => target.id)
+    if (responseIds.length !== targetIds.length) return
+    var includesAllIds = true
     targetIds.forEach((targetId) => {
-        includesAllIds = responseIds.includes(targetId);
-    });
+        includesAllIds = responseIds.includes(targetId)
+    })
 
     // Check that we have gotten responses from all hosted fields.
-    // Before sending the callback.
+    // Before sending the callback with field data + errors.
     if (includesAllIds) {
         const data = responses.reduce((formData, response) => {
-          const {errors, ...data} = formData;
-          const {errors: fieldErrors, ...fieldData} = response.data;
-          const newData = {...data, ...fieldData};
-          const allErrors = {...errors, ...fieldErrors};
+          const { errors, ...data } = formData;
+          const { errors: fieldErrors, ...fieldData } = response.data
+          const newData = { ...data, ...fieldData }
+          const allErrors = {...errors, ...fieldErrors}
           if (Object.keys(allErrors).length > 0) {
-            newData.errors = allErrors;
+            newData.errors = allErrors
           }
-          return newData;
-        }, {});
+          return newData
+        }, {})
         // Reset the responses.
         responses = []
-        callback()(data);
+        callback()(data)
     }
 }
 
