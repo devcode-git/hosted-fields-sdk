@@ -1,3 +1,7 @@
+#### 1.2.0
+- Allow all fields to be returned in a single iframe - renderMode: 'single' || 'multiple' (defaults to multiple)
+- Reported errors. All fields that reported an error are now returned in the array of errors (Thank you @vannhu-nguyen for the fix)
+
 #### 1.1.1
 - The Field constructor was missing support for noAttributeValueFormatting and autocomplete
   Now supports both, noAttributeValueFormatting defaults to false, autocomplete to empty string.
