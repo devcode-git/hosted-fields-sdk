@@ -72,8 +72,9 @@ Setup is the first function you will call. It takes a config-object as its only 
 ````
 {
     merchantId: 123456789,
-    hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.26/index.html',
+    hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.28/index.html',
     fields: my_fields, //fields you've generated using the Field-constructor
+    renderMode: 'single', // defaults to 'multiple', separate iframes per field
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
     styles: 'any custom styles you wish to include',
     callback: () => someFunction,
@@ -81,6 +82,10 @@ Setup is the first function you will call. It takes a config-object as its only 
     el = A domElement to render the hosted fields in
 }
 ````
+
+** renderMode**
+
+Choose if all fields should be returned in a single iframe (`single`) or separate iframes (`multiple`). Defaults to `multiple` for backwards compability.
 
 **callback**
 Pass in a function that you want to be called when the values from the fields are fetched.
@@ -91,9 +96,9 @@ loaded, allowing you to display some kind of loader until this callback has been
 
 Possible values for hostedfieldsurl:
 
-prod: 'https://hostedpages.paymentiq.io/1.0.26/index.html'
+prod: 'https://hostedpages.paymentiq.io/1.0.28/index.html'
 
-test: 'https://test-hostedpages.paymentiq.io/1.0.26/index.html'
+test: 'https://test-hostedpages.paymentiq.io/1.0.28/index.html'
 
 NOTE:
 Callback must be a function that returns a function.
