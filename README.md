@@ -83,7 +83,7 @@ Setup is the first function you will call. It takes a config-object as its only 
 }
 ````
 
-**renderMode**
+#### renderMode**
 
 Choose if all fields should be returned in a single iframe (`single`) or separate iframes (`multiple`). Defaults to `multiple` for backwards compability.
 
