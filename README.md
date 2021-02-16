@@ -72,7 +72,7 @@ Setup is the first function you will call. It takes a config-object as its only 
 ````
 {
     merchantId: 123456789,
-    hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.28/index.html',
+    hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.29/index.html',
     fields: my_fields, //fields you've generated using the Field-constructor
     renderMode: 'single', // defaults to 'multiple', separate iframes per field
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
@@ -96,9 +96,9 @@ loaded, allowing you to display some kind of loader until this callback has been
 
 Possible values for hostedfieldsurl:
 
-prod: 'https://hostedpages.paymentiq.io/1.0.28/index.html'
+prod: 'https://hostedpages.paymentiq.io/1.0.29/index.html'
 
-test: 'https://test-hostedpages.paymentiq.io/1.0.28/index.html'
+test: 'https://test-hostedpages.paymentiq.io/1.0.29/index.html'
 
 NOTE:
 Callback must be a function that returns a function.
