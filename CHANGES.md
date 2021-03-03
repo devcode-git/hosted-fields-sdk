@@ -1,3 +1,7 @@
+#### 1.2.1
+- Bug fix: Add an try catch around certain operations that are trying to 'appendChild' or get 'contentWindow'. It failed in some occasions and caused
+the onLoadCallback never to be triggered.
+
 #### 1.2.0
 - Allow all fields to be returned in a single iframe - renderMode: 'single' || 'multiple' (defaults to multiple)
 - Reported errors. All fields that reported an error are now returned in the array of errors (Thank you @vannhu-nguyen for the fix)
