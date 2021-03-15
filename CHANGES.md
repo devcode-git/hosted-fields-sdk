@@ -1,3 +1,6 @@
+#### 1.2.2
+- Upgrade in package.json and security vulnerabilities in dependencies
+
 #### 1.2.1
 - Bug fix: Add an try catch around certain operations that are trying to 'appendChild' or get 'contentWindow'. It failed in some occasions and caused
 the onLoadCallback never to be triggered.
