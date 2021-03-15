@@ -138,17 +138,22 @@ function initIframe (field) {
     var iframeContainerEl = document.createElement('div');
     iframeContainerEl.id = 'hosted-field-container-' + field.id
     iframeContainerEl.className = 'hosted-field-container'
-    iframeContainerEl.appendChild(iframe)
+    try {
+      iframeContainerEl.appendChild(iframe)
 
-    container.appendChild(iframeContainerEl);
+      container.appendChild(iframeContainerEl);
 
-    // Get the target window...
-    var target = document.querySelector('#'+iframe.id).contentWindow;
-    // Attach onload event listener to iframe so we can send the
-    // setupContent event when iframe is fully loaded.
-    iframe.onload = createIframeProxy.bind(this, field, target)
-    return {
-        id: iframe.id, target
+      // Get the target window...
+      var target = document.querySelector('#'+iframe.id).contentWindow;
+      // Attach onload event listener to iframe so we can send the
+      // setupContent event when iframe is fully loaded.
+      iframe.onload = createIframeProxy.bind(this, field, target)
+      return {
+          id: iframe.id, target
+      }
+    } catch (err) {
+      console.log(err)
+      onLoadCallback()()
     }
 }
 
@@ -184,18 +189,24 @@ function initSingleIframe () {
     var iframeContainerEl = document.createElement('div');
     iframeContainerEl.id = 'hosted-field-container-single-iframe'
     iframeContainerEl.className = 'hosted-field-container'
-    iframeContainerEl.appendChild(iframe)
+    try {
+      iframeContainerEl.appendChild(iframe)
 
-    container.appendChild(iframeContainerEl);
+      container.appendChild(iframeContainerEl);
 
-    // Get the target window...
-    var target = document.querySelector('#hosted-field-single-iframe').contentWindow;
-    // Attach onload event listener to iframe so we can send the
-    // setupContent event when iframe is fully loaded.
-    iframe.onload = createSingleIframeProxy.bind(this, fields, target)
-    return [{
-        id: iframe.id, target
-    }]
+      // Get the target window...
+      var target = document.querySelector('#hosted-field-single-iframe').contentWindow;
+      // Attach onload event listener to iframe so we can send the
+      // setupContent event when iframe is fully loaded.
+      iframe.onload = createSingleIframeProxy.bind(this, fields, target)
+      return [{
+          id: iframe.id, target
+      }]
+
+    } catch (err) {
+      console.log(err)
+      onLoadCallback()()
+    }
 }
 
 function createSingleIframeProxy (fields, target) {
