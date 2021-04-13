@@ -1,3 +1,6 @@
+#### 1.2.3
+- Security update: PostMessage origin checks
+
 #### 1.2.2
 - Upgrade in package.json and security vulnerabilities in dependencies
 
