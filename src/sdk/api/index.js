@@ -24,6 +24,8 @@ var callback;
 // Method to call when all responses from hosted fields
 // has been loaded
 var onLoadCallback;
+// Boolean - should the next field be focused when a valid value has been set
+var autoFocusNext;
 // Keep track of number of loaded fields
 var onLoadCounter = 0;
 // This window.
@@ -38,6 +40,7 @@ function setup (config) {
     styles = config.styles;
     callback = config.callback;
     onLoadCallback = config.onLoadCallback;
+    autoFocusNext = config.autoFocusNext || false
     el = config.el;
 
     // Create a single iframe for all the fields (single) or create an iframe per field (multiple)
@@ -50,9 +53,18 @@ function setup (config) {
     }
 }
 
+function validateOrigin (origin) {
+    const validOrigins = [
+        origin,
+        'https://test-hostedpages.paymentiq.io',
+        'https://hostedpages.paymentiq.io'
+    ]
+    return validOrigins.indexOf(origin) > -1
+}
+
 function get () {
     targets.forEach((target) => {
-        target.target.postMessage({action: actions.get, merchantId: merchantId, id: target.id}, '*');
+        target.target.postMessage({action: actions.get, merchantId: merchantId, id: target.id}, hostedfieldsurl);
     })
 }
 
@@ -85,14 +97,18 @@ function registerSingleIframe () {
 }
 
 function eventHandler ($event) {
-    switch ($event.data.action) {
-        case actions.formData:
-            responses.push({ id: $event.data.id, data: $event.data.formData })
-            sendCallback()
-            break;
-        case actions.formSubmit:
-            get()
-            break;
+    if (validateOrigin($event.origin)) {
+        switch ($event.data.action) {
+            case actions.formData:
+                responses.push({ id: $event.data.id, data: $event.data.formData })
+                sendCallback()
+                break;
+            case actions.formSubmit:
+                get()
+                break;
+        }
+    } else {
+        console.error('Received message from invalid origin', $event.origin)
     }
 }
 
@@ -165,8 +181,8 @@ function createIframeProxy (field, target) {
         action: actions.setupContent,
         styles: styles,
         fields: fieldsObj,
-        service: service
-    }, '*');
+        service: service,
+    }, hostedfieldsurl);
 
     onLoadCounter++
     if (onLoadCounter === fields.length && onLoadCallback) {
@@ -220,8 +236,11 @@ function createSingleIframeProxy (fields, target) {
         action: actions.setupSingleIframeContent,
         styles: styles,
         fields: fieldsObj,
-        service: service
-    }, '*');
+        service: service,
+        settings: {
+            autoFocusNext
+        }
+    }, hostedfieldsurl);
     
     onLoadCallback()()
 }
