@@ -1,3 +1,7 @@
+#### 1.2.3
+- Security update: PostMessage origin checks
+- Support auto-focus on next field when value is valid
+
 #### 1.2.2
 - Upgrade in package.json and security vulnerabilities in dependencies
 

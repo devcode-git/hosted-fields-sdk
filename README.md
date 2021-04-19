@@ -78,6 +78,7 @@ Setup is the first function you will call. It takes a config-object as its only 
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
     styles: 'any custom styles you wish to include',
     callback: () => someFunction,
+    autoFocusNext: true,
     onLoadCallback: () => someFunction
     el = A domElement to render the hosted fields in
 }
@@ -86,6 +87,11 @@ Setup is the first function you will call. It takes a config-object as its only 
 #### renderMode
 
 Choose if all fields should be returned in a single iframe (`single`) or separate iframes (`multiple`). Defaults to `multiple` for backwards compability.
+
+#### autoFocusNext
+From version `1.2.3` of the hosted-fields-sdk and Hosted-fields `1.0.31`, hosted-fields can be support to auto focus on the next field when a valid value has been entered. E.g when the user has entered their creditcard number, focus will automatically be put on expiry and then on to cvc.
+
+Defaults to `false`.
 
 **callback**
 Pass in a function that you want to be called when the values from the fields are fetched.
