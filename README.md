@@ -6,6 +6,7 @@ Hosted fields SDK is a toolkit that allows you generate a form/set of fields. It
 ## Demo
 [[Live demo](https://codesandbox.io/s/dry-fire-q9txy?file=/src/App.js:5219-5240)]
 
+## Setup
 
 ```
   npm i hosted-fields-sdk --save
