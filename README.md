@@ -367,7 +367,7 @@ HostedFields.setup({
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
   callback: () => formCallbackHandler,
-  onLoadCallback: () => formHasLoadedCallbackhandler
+  onLoadCallback: () => formHasLoadedCallbackhandler,
   el: '#hosted-fields-wrapper'
 })
 
