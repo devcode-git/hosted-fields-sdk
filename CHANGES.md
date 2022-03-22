@@ -1,3 +1,6 @@
+#### 1.2.4
+- Updated dependencies and patched vulnerabilities
+
 #### 1.2.3
 - Security update: PostMessage origin checks
 - Support auto-focus on next field when value is valid
