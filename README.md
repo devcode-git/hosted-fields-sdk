@@ -77,7 +77,7 @@ Setup is the first function you will call. It takes a config-object as its only 
 ````
 {
     merchantId: 123456789,
-    hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.38/index.html',
+    hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
     fields: my_fields, //fields you've generated using the Field-constructor
     renderMode: 'single', // defaults to 'multiple', separate iframes per field
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
@@ -107,7 +107,7 @@ loaded, allowing you to display some kind of loader until this callback has been
 
 Possible values for hostedfieldsurl:
 
-prod: 'https://hostedpages.paymentiq.io/1.0.38/index.html'
+prod: 'https://card-fields.paymentiq.io/1.0.50/index.html'
 
 test: 'https://test-hostedpages.paymentiq.io/1.0.38/index.html'
 
@@ -215,7 +215,7 @@ let fields = fieldConfig.map(conf => {
 ````
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.38/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
   fields: fields,
   service: 'some service',
   styles: '* .hosted-input-container .input-container input { color: green; }',
@@ -362,7 +362,7 @@ let fields = fieldConfig.map(conf => {
 
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.38/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
   fields: fields,
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
