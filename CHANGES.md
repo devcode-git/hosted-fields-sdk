@@ -1,3 +1,6 @@
+#### 1.2.5
+- Migration to card-fields new domain.
+
 #### 1.2.4
 - Updated dependencies and patched vulnerabilities
 
