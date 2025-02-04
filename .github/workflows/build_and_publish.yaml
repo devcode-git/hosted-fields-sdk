@@ -3,11 +3,10 @@ name: Build and Publish
 on:
   push:
     branches:
-      - main
-      - test-publish
+      - master
   pull_request:
     branches:
-      - test-publish
+      - master
     types: [opened, synchronize, reopened, edited]
 jobs:
   build:
@@ -29,8 +28,9 @@ jobs:
         run: npm run build
 
       - name: Test Publish to npm
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=\${NODE_AUTH_TOKEN}" > ~/.npmrc
+          echo "Branch: $GITHUB_REF" ${{ github.event_name }} ${{ github.ref }}
           npm publish --dry-run
