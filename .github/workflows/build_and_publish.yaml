@@ -32,5 +32,4 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          echo "Branch: $GITHUB_REF" ${{ github.event_name }} ${{ github.ref }}
-          npm publish --dry-run
+          npm publish
