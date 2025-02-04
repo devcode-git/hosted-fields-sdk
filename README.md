@@ -2,6 +2,14 @@
 
 Hosted fields SDK is a toolkit that allows you generate a form/set of fields. It is published as a node-module to the public [npm registry](https://www.npmjs.com/package/hosted-fields-sdk).
 
+> [!CAUTION]
+> **Migration and Deprecation Notice:** Starting from version 1.0.50, it is mandatory to use the `'https://card-fields.paymentiq.io/1.0.50/index.html'` as `hostedfieldsurl` value for **production** environments. Please update your configurations accordingly to avoid potential disruptions.
+>
+> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.38/index.html'` and well as *all previous versions* **will be deprecated starting 28 February 2025**. Please note that using older versions and the old domain may expose your system to potential risks.
+> 
+> This change is meant to enhance security and future compliance with the new requirements in the Payment Card Industry Data Security Standards. The old domain is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
+> 
+> Obs. **The new domain supports versions starting with 1.0.50 and above.** Make sure your implementation is updated to at least this version to ensure compatibility.
 
 ## Demo
 [[Live demo](https://codesandbox.io/s/dry-fire-q9txy?file=/src/App.js:5219-5240)]
@@ -77,7 +85,7 @@ Setup is the first function you will call. It takes a config-object as its only 
 ````
 {
     merchantId: 123456789,
-    hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.38/index.html',
+    hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
     fields: my_fields, //fields you've generated using the Field-constructor
     renderMode: 'single', // defaults to 'multiple', separate iframes per field
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
@@ -101,19 +109,23 @@ Defaults to `false`.
 **callback**
 Pass in a function that you want to be called when the values from the fields are fetched.
 
+NOTE:
+Callback must be a function that returns a function.
+This allows you to run for example your own validation on the values before you pass in your callback that will handle your formData.
+
 **onLoadCallback**
 Optionally, you can pass in a function that will be called when all the fields you have passed in have
 loaded, allowing you to display some kind of loader until this callback has been triggered.
 
-Possible values for hostedfieldsurl:
+**Possible values for hostedfieldsurl:**
 
-prod: 'https://hostedpages.paymentiq.io/1.0.38/index.html'
+For test environments use: `'https://test-hostedpages.paymentiq.io/1.0.38/index.html'`.
 
-test: 'https://test-hostedpages.paymentiq.io/1.0.38/index.html'
+For production environments use `'https://card-fields.paymentiq.io/1.0.50/index.html'` starting version 1.0.50 and above.
 
-NOTE:
-Callback must be a function that returns a function.
-This allows you to run for example your own validation on the values before you pass in your callback that will handle your formData.
+> [!WARNING]  
+> Please note that **previous versions**, as well as old domain name ***hostedpages* will be deprecated and must be updated by 28 February 2025**.
+> For previos versions we use: `'https://hostedpages.paymentiq.io/1.0.50/index.html'` where the part 1.0.50 represents the version number.
 
 Setup will first set the base values. After that it will loop through the fields you've passed in and create an iframe for each one.
 
@@ -215,7 +227,7 @@ let fields = fieldConfig.map(conf => {
 ````
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.38/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
   fields: fields,
   service: 'some service',
   styles: '* .hosted-input-container .input-container input { color: green; }',
@@ -362,7 +374,7 @@ let fields = fieldConfig.map(conf => {
 
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://hostedpages.paymentiq.io/1.0.38/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
   fields: fields,
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
@@ -379,3 +391,30 @@ Fields that are to be encrypted (Card number + CVV) will return the encrypted va
 If any errors are detected, an error message will be returned as the value of that field, prefixed with ERROR
 
 ````
+
+### Migration Notice
+
+#### Domain Change Explanation and Disclaimer
+
+Overview of Change:
+We have recently updated the domain used for our card fields to enhance security and compliance with current standards. The old domain, while PCI DSS compliant, is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
+
+#### New Domain:
+Domain: `card-fields.paymentiq.io/1.0.50/`
+
+#### Compatibility Note:
+Supported Versions: This domain supports versions starting with 1.0.50 and above. Make sure your implementation is updated to at least this version to ensure compatibility.
+
+#### Why Change?
+- Security and Compliance: The new domain aligns with the latest PCI DSS requirements and offers enhanced security features.
+- Future-proofing: By migrating to the new domain, users avoid potential disruptions caused by the deprecation of the old domain.
+
+#### Action Required:
+Upgrade Your Version: Ensure your integration uses version 1.0.50 or later.
+Migrate to the New Domain: Begin using the new domain by updating your configurations accordingly.
+
+#### Deprecation Timeline:
+Old Domain: The old domain will be deprecated on (do we have a date for deprecation?), after which it will no longer be supported.
+
+#### Additional Notes:
+Reach out to our support team if you encounter any issues during the transition or require further assistance.
