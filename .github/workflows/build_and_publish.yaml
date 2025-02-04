@@ -5,6 +5,10 @@ on:
     branches:
       - main
       - test-publish
+  pull_request:
+    branches:
+      - test-publish
+    types: [opened, synchronize, reopened, edited]
 jobs:
   build:
     runs-on: ubuntu-latest
