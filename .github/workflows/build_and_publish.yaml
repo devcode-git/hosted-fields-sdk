@@ -27,7 +27,7 @@ jobs:
       - name: Build the project
         run: npm run build
 
-      - name: Test Publish to npm
+      - name: Publish to npm
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
