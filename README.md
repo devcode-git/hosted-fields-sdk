@@ -379,3 +379,30 @@ Fields that are to be encrypted (Card number + CVV) will return the encrypted va
 If any errors are detected, an error message will be returned as the value of that field, prefixed with ERROR
 
 ````
+
+### Migration Notice
+
+#### Domain Change Explanation and Disclaimer
+
+Overview of Change:
+We have recently updated the domain used for our card fields to enhance security and compliance with current standards. The old domain, while PCI DSS compliant, is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
+
+#### New Domain:
+Domain: `card-fields.paymentiq.io/1.0.50/`
+
+#### Compatibility Note:
+Supported Versions: This domain supports versions starting with 1.0.50 and above. Make sure your implementation is updated to at least this version to ensure compatibility.
+
+#### Why Change?
+- Security and Compliance: The new domain aligns with the latest PCI DSS requirements and offers enhanced security features.
+- Future-proofing: By migrating to the new domain, users avoid potential disruptions caused by the deprecation of the old domain.
+
+#### Action Required:
+Upgrade Your Version: Ensure your integration uses version 1.0.50 or later.
+Migrate to the New Domain: Begin using the new domain by updating your configurations accordingly.
+
+#### Deprecation Timeline:
+Old Domain: The old domain will be deprecated on (do we have a date for deprecation?), after which it will no longer be supported.
+
+#### Additional Notes:
+Reach out to our support team if you encounter any issues during the transition or require further assistance.
