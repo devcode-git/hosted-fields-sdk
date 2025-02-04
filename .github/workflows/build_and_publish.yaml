@@ -20,16 +20,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20.12.2'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build the project
         run: npm run build
 
       - name: Publish to npm
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: |
-          npm publish
