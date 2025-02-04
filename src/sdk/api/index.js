@@ -57,7 +57,8 @@ function validateOrigin (origin) {
     const validOrigins = [
         origin,
         'https://test-hostedpages.paymentiq.io',
-        'https://hostedpages.paymentiq.io'
+        'https://hostedpages.paymentiq.io',
+        'https://card-fields.paymentiq.io'
     ]
     return validOrigins.indexOf(origin) > -1
 }
