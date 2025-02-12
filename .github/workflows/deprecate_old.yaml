@@ -1,12 +1,11 @@
-# DO: npm deprecate hosted-fields-sdk@"<1.2.5" "CRITICAL Please update your configuration for production environments ONLY: change the hostedfieldsurl value from https://hostedpages.paymentiq.io/1.0.38/index.html to https://card-fields.paymentiq.io/1.0.50/index.html as specified in the README. Versions of hosted-fields-sdk prior to 1.2.5 are deprecated." --otp=376853 --dry-run
 name: Deprecate packages on npm
-
 on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch: 
 jobs:
   deprecate:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
