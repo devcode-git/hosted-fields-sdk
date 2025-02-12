@@ -1,7 +1,5 @@
 name: Deprecate packages on npm
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
   workflow_dispatch: 
 jobs:
   deprecate:
@@ -16,8 +14,3 @@ jobs:
           node-version: '20.12.2'
           registry-url: 'https://registry.npmjs.org'
           token: ${{ secrets.NPM_TOKEN }}
-
-      - name: Deprecate on npm
-        run: npm deprecate hosted-fields-sdk@"< 1.2.5" "CRITICAL Please update your configuration for production environments ONLY. Change the hostedfieldsurl value from https://hostedpages.paymentiq.io/1.0.38/index.html to https://card-fields.paymentiq.io/1.0.50/index.html as specified in the README. Versions of hosted-fields-sdk prior to 1.2.5 are deprecated." --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
