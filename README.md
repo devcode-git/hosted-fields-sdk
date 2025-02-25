@@ -3,13 +3,15 @@
 Hosted fields SDK is a toolkit that allows you generate a form/set of fields. It is published as a node-module to the public [npm registry](https://www.npmjs.com/package/hosted-fields-sdk).
 
 > [!CAUTION]
-> **Migration and Deprecation Notice:** Starting from version 1.0.50, it is mandatory to use the `'https://card-fields.paymentiq.io/1.0.50/index.html'` as `hostedfieldsurl` value for **production** environments. Please update your configurations accordingly to avoid potential disruptions.
+> **Migration and Deprecation Notice:** Starting from version 1.0.50, it is mandatory to use the `'https://card-fields.paymentiq.io/1.0.51/index.html'` as `hostedfieldsurl` value for **production** environments. Please update your configurations accordingly to avoid potential disruptions.
 >
-> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.38/index.html'` and well as *all previous versions* **will be deprecated starting 28 February 2025**. Please note that using older versions and the old domain may expose your system to potential risks.
+> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.51/index.html'` and well as *all versions previous to 1.0.50* **will be deprecated starting 15 March 2025**. Please note that using older versions and the old domain may expose your system to potential risks.
 > 
 > This change is meant to enhance security and future compliance with the new requirements in the Payment Card Industry Data Security Standards. The old domain is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
 > 
 > Obs. **The new domain supports versions starting with 1.0.50 and above.** Make sure your implementation is updated to at least this version to ensure compatibility.
+> 
+
 
 ## Demo
 [[Live demo](https://codesandbox.io/s/dry-fire-q9txy?file=/src/App.js:5219-5240)]
@@ -85,7 +87,7 @@ Setup is the first function you will call. It takes a config-object as its only 
 ````
 {
     merchantId: 123456789,
-    hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
+    hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.51/index.html',
     fields: my_fields, //fields you've generated using the Field-constructor
     renderMode: 'single', // defaults to 'multiple', separate iframes per field
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
@@ -97,12 +99,14 @@ Setup is the first function you will call. It takes a config-object as its only 
 }
 ````
 
+Setup will first set the base values. After that it will loop through the fields you've passed in and create an iframe for each one.
+
 #### renderMode
 
 Choose if all fields should be returned in a single iframe (`single`) or separate iframes (`multiple`). Defaults to `multiple` for backwards compability.
 
 #### autoFocusNext
-From version `1.2.3` of the hosted-fields-sdk and Hosted-fields `1.0.31`, hosted-fields can be support to auto focus on the next field when a valid value has been entered. E.g when the user has entered their creditcard number, focus will automatically be put on expiry and then on to cvc.
+Hosted-fields can support to auto focus on the next field when a valid value has been entered. E.g when the user has entered their creditcard number, focus will automatically be put on expiry and then on to cvc.
 
 Defaults to `false`.
 
@@ -119,15 +123,17 @@ loaded, allowing you to display some kind of loader until this callback has been
 
 **Possible values for hostedfieldsurl:**
 
-For test environments use: `'https://test-hostedpages.paymentiq.io/1.0.38/index.html'`.
+For test environments use: `'https://test-hostedpages.paymentiq.io/1.0.51/index.html'`.
 
-For production environments use `'https://card-fields.paymentiq.io/1.0.50/index.html'` starting version 1.0.50 and above.
+For production environments use `'https://card-fields.paymentiq.io/1.0.51/index.html'`.
+
+**Available versions for `'https://card-fields.paymentiq.io/1.0.51/index.html'`(where the part 1.0.51 represents the version number):**
+- 1.0.51
+- 1.0.50
 
 > [!WARNING]  
-> Please note that **previous versions**, as well as old domain name ***hostedpages* will be deprecated and must be updated by 28 February 2025**.
-> For previos versions we use: `'https://hostedpages.paymentiq.io/1.0.50/index.html'` where the part 1.0.50 represents the version number.
+> Please note that **previous versions**(older than 1.0.50), as well as old domain name ***hostedpages* will be deprecated and must be updated by 15 March 2025**.
 
-Setup will first set the base values. After that it will loop through the fields you've passed in and create an iframe for each one.
 
 **get**
 
@@ -227,7 +233,7 @@ let fields = fieldConfig.map(conf => {
 ````
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.51/index.html',
   fields: fields,
   service: 'some service',
   styles: '* .hosted-input-container .input-container input { color: green; }',
@@ -374,7 +380,7 @@ let fields = fieldConfig.map(conf => {
 
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.50/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.51/index.html',
   fields: fields,
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
@@ -400,7 +406,7 @@ Overview of Change:
 We have recently updated the domain used for our card fields to enhance security and compliance with current standards. The old domain, while PCI DSS compliant, is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
 
 #### New Domain:
-Domain: `card-fields.paymentiq.io/1.0.50/`
+Domain: `card-fields.paymentiq.io/1.0.51/`
 
 #### Compatibility Note:
 Supported Versions: This domain supports versions starting with 1.0.50 and above. Make sure your implementation is updated to at least this version to ensure compatibility.
@@ -414,7 +420,7 @@ Upgrade Your Version: Ensure your integration uses version 1.0.50 or later.
 Migrate to the New Domain: Begin using the new domain by updating your configurations accordingly.
 
 #### Deprecation Timeline:
-Old Domain: The old domain will be deprecated on (do we have a date for deprecation?), after which it will no longer be supported.
+Old Domain: The old domain will be deprecated on 15 March, after which it will no longer be supported.
 
 #### Additional Notes:
 Reach out to our support team if you encounter any issues during the transition or require further assistance.
