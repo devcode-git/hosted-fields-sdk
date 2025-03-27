@@ -3,12 +3,12 @@
   "version": "2.0.0",
   "description": "Hosted fields sdk",
   "type": "module",
-  "main": "./dist/hosted-fields-sdk.umd.js",
-  "module": "./dist/hosted-fields-sdk.js",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/hosted-fields-sdk.js",
-      "require": "./dist/hosted-fields-sdk.umd.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
     }
   },
   "files": [
