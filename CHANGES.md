@@ -1,3 +1,7 @@
+### 2.0.0
+- Migrate build system to vite to support UMD and ESM modules.
+- Upgrade eslint to v9 and migrate to flat config.
+
 #### 1.2.5
 - Migration to card-fields new domain.
 

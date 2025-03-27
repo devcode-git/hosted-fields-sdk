@@ -29,7 +29,7 @@ var autoFocusNext;
 // Keep track of number of loaded fields
 var onLoadCounter = 0;
 // This window.
-var window = document.parentWindow || document.defaultView;
+var window = document.parentWindow || document.defaultView;
 
 function setup (config) {
     merchantId = config.merchantId;
@@ -73,6 +73,7 @@ function reset () {
   targets = []
 }
 
+// eslint-disable-next-line
 function destroyContent () {
   merchantId = null
   fields = null;
