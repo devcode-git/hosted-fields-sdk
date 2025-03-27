@@ -11,7 +11,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.js'),
       name: 'hosted-fields-sdk',
       // the proper extensions will be added
-      fileName: 'hosted-fields-sdk',
+      fileName: 'index',
       formats: ["es", "umd"]
     }
   },
