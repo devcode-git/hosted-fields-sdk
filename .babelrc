@@ -1,4 +1,18 @@
 {
-    "presets": ["@babel/preset-env"],
-    "plugins": ["@babel/plugin-transform-runtime", "rewire"]
+    "plugins": [
+        "@babel/plugin-transform-runtime",
+        "rewire"
+    ],
+    "env": {
+        "cjs": {
+            "presets": [
+                ["@babel/preset-env", { "modules": "commonjs" }]
+            ]
+        },
+        "esm": {
+            "presets": [
+                ["@babel/preset-env", { "modules": false }]
+            ]
+        }
+    }
 }
