@@ -1,13 +1,25 @@
 {
   "name": "hosted-fields-sdk",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Hosted fields sdk",
   "main": "dist/index.js",
+  "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "import": "./dist/index.js"
+    },
+    "./esm": {
+      "import": "./dist/esm/index.js"
+    }
+  },
   "scripts": {
     "test": "test",
-    "build": "rimraf dist && npm run build:js && npm run uglify",
-    "build:js": "eslint src && babel src --out-dir dist",
-    "uglify": "recursive-uglifyjs dist"
+    "eslint": "eslint src",
+    "build": "rimraf dist && npm run eslint && npm run build:cjs && npm run build:esm && npm run uglify",
+    "build:cjs": "babel src --out-dir dist --env-name cjs",
+    "uglify": "recursive-uglifyjs dist",
+    "build:esm": "babel src --out-dir dist/esm --extensions '.js' --env-name esm"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
@@ -40,5 +52,8 @@
   "bugs": {
     "url": "https://github.com/devcode-git/hosted-fields-sdk/issues"
   },
-  "homepage": "https://github.com/devcode-git/hosted-fields-sdk#readme"
+  "homepage": "https://github.com/devcode-git/hosted-fields-sdk#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.27.0"
+  }
 }

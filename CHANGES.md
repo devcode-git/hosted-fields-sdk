@@ -1,3 +1,9 @@
+#### 1.2.7
+- Add full ESM support under /esm
+
+#### 1.2.6
+- Updated dependencies and patched vulnerabilities
+
 #### 1.2.5
 - Migration to card-fields new domain.
 
