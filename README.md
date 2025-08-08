@@ -94,8 +94,8 @@ Setup is the first function you will call. It takes a config-object as its only 
     styles: 'any custom styles you wish to include',
     callback: () => someFunction,
     autoFocusNext: true,
-    onLoadCallback: () => someFunction
-    onCardBrandChangeCallback: ({ cardBrand: string }) => unknown
+    onLoadCallback: () => someFunction,
+    onCardBrandChangeCallback: ({ cardBrand: string }) => unknown,
     el = A domElement to render the hosted fields in
 }
 ````
@@ -145,13 +145,13 @@ For production environments use `'https://card-fields.paymentiq.io/1.0.51/index.
 **get**
 
 If you want to get the encrypted values from the fields you can call
-```
+```js
 HostedFields.get()
 ```
 This will trigger the supplied callback-function registered in HostedFields.setup() to be called with the values for each field.
 Note that the callback function will also be called if the user presses enter in any of the fields.
 
-```
+```js
 {
    cardHolder: 'Admiral Ackbar',
    encCreditcardNumber: 'ENCRYPTED_STRING',
@@ -166,7 +166,7 @@ Note that the callback function will also be called if the user presses enter in
 If you wish to reset the currently rendered iframes (fields) you can call HostedFields.reset() before running a new setup().
 This can be required if your page that contains the fields gets re-rendered. In that case you will have registered duplicates of the fields. So it's a good idea to call HostedFields.reset() on a beforeDestroy-hook if you are using Vue or React.
 
-````
+````js
 //Each iframe will get an id 'hosted-field-' + the id of the field
 iframe.id = 'hosted-field-' + field.id;
 
@@ -296,7 +296,7 @@ The RenderAsFloatingLabel rule will render the input placeholder as a floating l
 Each field will get wrapped by a div with the class *.hosted-field-container* and an id suffixed with the stated id for that field.
 
 By adding the following styles a basic layout will be created:
-````
+````css
 //style.css
 
 #hosted-fields-wrapper {
@@ -314,7 +314,7 @@ By adding the following styles a basic layout will be created:
 ````
 
 ## Full checkout form
-````
+````js
 import { HostedFields, Field, FieldTypes } from 'hosted-fields-sdk'
 
 // Configure your fields
