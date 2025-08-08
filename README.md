@@ -95,7 +95,7 @@ Setup is the first function you will call. It takes a config-object as its only 
     callback: () => someFunction,
     autoFocusNext: true,
     onLoadCallback: () => someFunction
-    ononCardBrandChangeCallback: ({ cardBrand: string }) => unknown
+    onCardBrandChangeCallback: ({ cardBrand: string }) => unknown
     el = A domElement to render the hosted fields in
 }
 ````
