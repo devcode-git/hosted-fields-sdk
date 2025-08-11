@@ -24,6 +24,9 @@ var callback;
 // Method to call when all responses from hosted fields
 // has been loaded
 var onLoadCallback;
+// Method to call when card brand(e.g. visa, mastercard, etc.) has changed 
+// based on the credit card nunmber that was entered.
+var onCardBrandChangeCallback;
 // Boolean - should the next field be focused when a valid value has been set
 var autoFocusNext;
 // Keep track of number of loaded fields
@@ -40,6 +43,7 @@ function setup (config) {
     styles = config.styles;
     callback = config.callback;
     onLoadCallback = config.onLoadCallback;
+    onCardBrandChangeCallback = config.onCardBrandChangeCallback;
     autoFocusNext = config.autoFocusNext || false
     el = config.el;
 
@@ -73,19 +77,6 @@ function reset () {
   targets = []
 }
 
-function destroyContent () {
-  merchantId = null
-  fields = null;
-  hostedfieldsurl = null
-  service = null
-  styles = null
-  targets = []
-  responses = []
-  el = null
-  callback = null
-  onLoadCallback = null
-  onLoadCounter = 0
-}
 
 function registerIframes () {
     targets = targets.concat(fields.map((field) => {
@@ -103,6 +94,9 @@ function eventHandler ($event) {
             case actions.formData:
                 responses.push({ id: $event.data.id, data: $event.data.formData })
                 sendCallback()
+                break;
+            case actions.cardBrandChange:
+                onCardBrandChangeCallback?.({cardBrand: $event.data.cardBrand })
                 break;
             case actions.formSubmit:
                 get()

@@ -9,6 +9,8 @@ export const actions = {
     // Received when with the hosted field data.
     formData: 'formData',
     // Received when enter was pressed in the hosted fields to submit the form.
-    formSubmit: 'formSubmit'
+    formSubmit: 'formSubmit',
+    // Received when the hosted fields credit card number changed and returs the detected card brand.
+    cardBrandChange: 'cardBrandChange',
 }
 Object.freeze(actions)
