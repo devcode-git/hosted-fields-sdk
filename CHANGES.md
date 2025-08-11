@@ -1,3 +1,6 @@
+#### 1.2.8
+- Add onCardBrandChangeCallback
+
 #### 1.2.7
 - Add full ESM support under /esm
 
