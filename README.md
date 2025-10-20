@@ -96,7 +96,21 @@ Setup is the first function you will call. It takes a config-object as its only 
     autoFocusNext: true,
     onLoadCallback: () => someFunction,
     onCardBrandChangeCallback: ({ cardBrand: string }) => unknown,
-    el = A domElement to render the hosted fields in
+    el: A domElement to render the hosted fields in,
+    // Set the config from below if need to integrate ClickToPay
+    // The full list of attributes can be seen here: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-properties
+    // You can override only these attributes in Hosted Fields. These are the default values:
+    clickToPayAttributes: {
+        locale: "en_US",
+        sandbox: "true", // Make sure to set it "false" in production
+    },
+    // See the full config here: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide#scheme-specific-configuration
+    clickToPayConfig: "<ClickToPayConfig>", 
+    onRequestIframeExpandCallback: (recommendedHeight: number) => unknown,  
+    onCancelIframeExpandCallback: () => unkown, 
+    // Response type here: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-respons
+    onClickToPayCheckoutSuccessCallback: (response) => uknown, 
+    onClickToPayCheckoutErrorCallback: (error) => unkown, 
 }
 ````
 
@@ -127,6 +141,27 @@ Optionally, you can pass in a function that will be called when credit card numb
 and will return the detected **cardBrand**(e.g. visa, mastercard, etc.).
 
 This is usually used for dynamic credit card flow handling based on the card brand(e.g. for ClickToPay).
+
+**clickToPayAattributes**
+The attributes passed to the ClickToPay instance.
+
+**clickToPayConfig**
+The config passed to the ClickToPay instance.
+
+**onRequestIframeExpandCallback**
+This callback is triggered when the clickToPayCheckout call is performed to inform the integrator that 
+the iframe height should be changed to the **recommendedHeight** and hide all the other visible UI elements 
+to make room for the ClickToPay iframe to expand.
+
+**onCancelIframeExpandCallback**
+This callback is triggered when the ClickToPay checkout has finised to inform the integrator that 
+the iframe height should be restored and show all the other previously hidden UI elements.
+
+**onClickToPayCheckoutSuccessCallback**
+The callback triggered when receive a success response after a ClickToPay checkout.
+
+**onClickToPayCheckoutErrorCallback**
+The callback triggered when receive an error after a ClickToPay cehckout.
 
 **Possible values for hostedfieldsurl:**
 
