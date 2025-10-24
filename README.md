@@ -75,10 +75,12 @@ Expiry: `cc-exp`
 
 
 #### HostedFields
-HostedFields in turn will expose three functions
+HostedFields in turn will expose these functions
 * setup
 * get
 * reset
+* setClickToPayTransactionAmount
+* clickToPayCheckout
 
 **setup**
 
@@ -212,6 +214,22 @@ iframe.src = hostedfieldsurl + '?mid=' + merchantId;
 var container = document.querySelector(el);
 ````
 Lastly eventListener are registered to the iframe so that it picks up postMessage events.
+
+
+**setClickToPayTransactionAmount** *(used for ClickToPay integration)*
+
+It's used when the transaction amount should be dynamically changed.
+
+Set ClickToPay transaction amount according to:  
+https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide
+
+
+**clickToPayCheckout** *(used for ClickToPay integration)*
+    
+Perform ClickToPay checkout according to:  
+https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-api
+
+
 
 ## Styling
 Styling will mainly be handled buy the application using the hosted-fields. Each field will have some basic styling but the layout will have to be supplied.

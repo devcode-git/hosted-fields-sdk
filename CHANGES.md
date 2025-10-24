@@ -1,3 +1,6 @@
+#### 1.3.0
+- Add ClickToPay integration
+
 #### 1.2.8
 - Add onCardBrandChangeCallback
 
