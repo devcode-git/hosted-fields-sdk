@@ -211,7 +211,7 @@ function sendCallback () {
 }
 
 function handleOnLoad(iframe) {
-    onLoadCallback()();
+    onLoadCallback?.()();
 
     if (!iframe) return;
     clickToPayIframe = iframe;
