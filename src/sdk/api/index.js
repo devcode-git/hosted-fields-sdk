@@ -54,7 +54,7 @@ var clickToPayConfig;
 
  
 const recommendedExpandedHeight = 850; // in px
-const iframeAllowPermissions = 'payment'
+const iframeAllowPermissions = 'payment';
 
 function setup (config) {
     merchantId = config.merchantId;
