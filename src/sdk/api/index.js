@@ -14,6 +14,8 @@ var service;
 var styles;
 // The hosted fields.
 var targets = [];
+// The ClickToPay target iframe
+var clickToPayIframe 
 // Responses gotten from the hosted fields.
 var responses = [];
 // Element to render the hosted fields on.
@@ -27,12 +29,32 @@ var onLoadCallback;
 // Method to call when card brand(e.g. visa, mastercard, etc.) has changed 
 // based on the credit card nunmber that was entered.
 var onCardBrandChangeCallback;
+// Method to call when iframe requests to expand (used for ClickToPay when 3DS window is shown)
+var onRequestIframeExpandCallback;
+// Method to call when iframe requests to cancel expand
+var onCancelIframeExpandCallback;
+// Method to call when receive a successful ClickToPay checkout response
+var onClickToPayCheckoutSuccessCallback;
+// Method to call when receive an error on the ClickToPay checkout
+var onClickToPayCheckoutErrorCallback;
 // Boolean - should the next field be focused when a valid value has been set
 var autoFocusNext;
 // Keep track of number of loaded fields
 var onLoadCounter = 0;
 // This window.
 var window = document.parentWindow || document.defaultView;
+/**
+ * ClickToPay attributes for the ClickToPay instance
+ * @param locale default: "en_US"
+ * @param sandbox default: "true" (set it to "false" in production)
+ */ 
+var clickToPayAttributes;
+// ClickToPay config according to: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide
+var clickToPayConfig;
+
+ 
+const recommendedExpandedHeight = 850; // in px
+const iframeAllowPermissions = 'payment';
 
 function setup (config) {
     merchantId = config.merchantId;
@@ -44,8 +66,14 @@ function setup (config) {
     callback = config.callback;
     onLoadCallback = config.onLoadCallback;
     onCardBrandChangeCallback = config.onCardBrandChangeCallback;
+    onRequestIframeExpandCallback = config.onRequestIframeExpandCallback;
+    onCancelIframeExpandCallback = config.onCancelIframeExpandCallback;
+    onClickToPayCheckoutSuccessCallback = config.onClickToPayCheckoutSuccessCallback;
+    onClickToPayCheckoutErrorCallback = config.onClickToPayCheckoutErrorCallback;
     autoFocusNext = config.autoFocusNext || false
     el = config.el;
+    clickToPayConfig = config.clickToPayConfig;
+    clickToPayAttributes = config.clickToPayAttributes;
 
     // Create a single iframe for all the fields (single) or create an iframe per field (multiple)
     if (renderMode && renderMode === 'single') {
@@ -75,6 +103,39 @@ function get () {
 
 function reset () {
   targets = []
+  clickToPayIframe = undefined
+}
+
+function assertClickToPayIsSet () {
+    if(!clickToPayConfig) {
+        console.error('ClickToPay config not set')
+        return false
+    }
+    
+    if(!clickToPayIframe) {
+        console.error('ClickToPay target not set internally')
+        return false
+    } 
+
+    return true
+}
+
+function setClickToPayTransactionAmount (transactionAmount) {
+    if(!assertClickToPayIsSet()) return;
+    
+    clickToPayIframe.contentWindow.postMessage({
+        action: actions.setClickToPayTransactionAmount,
+        transactionAmount
+    }, hostedfieldsurl)
+}
+
+function clickToPayCheckout (payload) {
+    if(!assertClickToPayIsSet()) return;
+
+    clickToPayIframe.contentWindow.postMessage({
+        action: actions.clickToPayCheckout,
+        payload
+    }, hostedfieldsurl)
 }
 
 
@@ -97,6 +158,20 @@ function eventHandler ($event) {
                 break;
             case actions.cardBrandChange:
                 onCardBrandChangeCallback?.({cardBrand: $event.data.cardBrand })
+                break;
+            case actions.requestIframeExpand:
+                onRequestIframeExpandCallback?.(recommendedExpandedHeight)
+                clickToPayIframe.classList.add('expanded')
+                break;
+            case actions.clickToPayCheckoutSuccess:
+                onClickToPayCheckoutSuccessCallback?.($event.data.response)
+                break;
+            case actions.clickToPayCheckoutError:
+                onClickToPayCheckoutErrorCallback?.($event.data.error)
+                break;
+            case actions.cancelIframeExpand:
+                onCancelIframeExpandCallback?.()
+                clickToPayIframe.classList.remove('expanded')
                 break;
             case actions.formSubmit:
                 get()
@@ -135,11 +210,28 @@ function sendCallback () {
     }
 }
 
+function handleOnLoad(iframe) {
+    onLoadCallback?.()();
+
+    if (!iframe) return;
+    clickToPayIframe = iframe;
+
+    if (clickToPayConfig) {
+        clickToPayIframe.contentWindow.postMessage({
+            action: actions.setupClickToPay,
+            attributes: clickToPayAttributes,
+            config: clickToPayConfig
+        }, hostedfieldsurl);
+    }
+}
+
+
 // Sets up a single iframe for each field
 function initIframe (field) {
     var iframe = document.createElement('iframe');
     iframe.id = 'hosted-field-' + field.id;
     iframe.name = 'hosted-field-' + field.id;
+    iframe.allow = iframeAllowPermissions;
     // iframe.tabIndex = '-1'; // This disabled the possibility to set focus on the frame and any of its contents.
 
     // This is hostedfieldsurl
@@ -155,24 +247,25 @@ function initIframe (field) {
       container.appendChild(iframeContainerEl);
 
       // Get the target window...
-      var target = document.querySelector('#'+iframe.id).contentWindow;
+      var targetIframe = document.querySelector('#'+iframe.id);
       // Attach onload event listener to iframe so we can send the
       // setupContent event when iframe is fully loaded.
-      iframe.onload = createIframeProxy.bind(this, field, target)
+      iframe.onload = createIframeProxy.bind(this, field, targetIframe)
       return {
-          id: iframe.id, target
+          id: iframe.id, 
+          target: targetIframe.contentWindow
       }
     } catch (err) {
       console.log(err)
-      onLoadCallback()()
+      handleOnLoad(null)
     }
 }
 
-function createIframeProxy (field, target) {
+function createIframeProxy (field, iframe) {
     var fieldsObj = {};
     fieldsObj[field.name] = field;
     window.addEventListener("message", eventHandler, false)
-    target.postMessage({
+    iframe.contentWindow.postMessage({
         action: actions.setupContent,
         styles: styles,
         fields: fieldsObj,
@@ -181,7 +274,7 @@ function createIframeProxy (field, target) {
 
     onLoadCounter++
     if (onLoadCounter === fields.length && onLoadCallback) {
-        onLoadCallback()()
+        handleOnLoad(iframe)
         onLoadCounter = 0
     }
 }
@@ -192,6 +285,7 @@ function initSingleIframe () {
     iframe.id = 'hosted-field-single-iframe';
     iframe.name = 'hosted-field-single-iframe';
     // iframe.tabIndex = '-1'; // This disabled the possibility to set focus on the frame and any of its contents.
+    iframe.allow = iframeAllowPermissions;
 
     // This is hostedfieldsurl
     iframe.src = hostedfieldsurl + '?mid=' + merchantId;
@@ -206,28 +300,29 @@ function initSingleIframe () {
       container.appendChild(iframeContainerEl);
 
       // Get the target window...
-      var target = document.querySelector('#hosted-field-single-iframe').contentWindow;
+      var targetIframe = document.querySelector('#hosted-field-single-iframe');
       // Attach onload event listener to iframe so we can send the
       // setupContent event when iframe is fully loaded.
-      iframe.onload = createSingleIframeProxy.bind(this, fields, target)
+      iframe.onload = createSingleIframeProxy.bind(this, fields, targetIframe)
       return [{
-          id: iframe.id, target
+          id: iframe.id, 
+          target: targetIframe.contentWindow
       }]
 
     } catch (err) {
       console.log(err)
-      onLoadCallback()()
+      handleOnLoad(null)
     }
 }
 
-function createSingleIframeProxy (fields, target) {
+function createSingleIframeProxy (fields, iframe) {
     var fieldsObj = {};
     fields.forEach(function (field) {
         fieldsObj[field.name] = field;
     })
 
     window.addEventListener("message", eventHandler, false)
-    target.postMessage({
+    iframe.contentWindow.postMessage({
         action: actions.setupSingleIframeContent,
         styles: styles,
         fields: fieldsObj,
@@ -237,7 +332,7 @@ function createSingleIframeProxy (fields, target) {
         }
     }, hostedfieldsurl);
     
-    onLoadCallback()()
+    handleOnLoad(iframe)
 }
 
 export const HostedFields = {
@@ -246,5 +341,9 @@ export const HostedFields = {
     // Get the data from the hosted fields.
     get,
     // reset the current targets
-    reset
+    reset,
+    // Set Click To Pay transaction amount according to: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide
+    setClickToPayTransactionAmount,
+    // Perform ClickToPay checkout according to: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-api
+    clickToPayCheckout,
 };

@@ -1,3 +1,8 @@
+#### 1.3.0
+- Add ClickToPay integration support
+- Provide high-level types with index.d.ts ([Issue 21](https://github.com/devcode-git/hosted-fields-sdk/issues/21))
+- Make onLoadCallback optional ([Issue 22](https://github.com/devcode-git/hosted-fields-sdk/issues/21))
+
 #### 1.2.8
 - Add onCardBrandChangeCallback
 

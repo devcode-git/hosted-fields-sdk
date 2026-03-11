@@ -3,9 +3,9 @@
 Hosted fields SDK is a toolkit that allows you generate a form/set of fields. It is published as a node-module to the public [npm registry](https://www.npmjs.com/package/hosted-fields-sdk).
 
 > [!CAUTION]
-> **Migration and Deprecation Notice:** Starting from version 1.0.50, it is mandatory to use the `'https://card-fields.paymentiq.io/1.0.51/index.html'` as `hostedfieldsurl` value for **production** environments. Please update your configurations accordingly to avoid potential disruptions.
+> **Migration and Deprecation Notice:** Starting from version 1.0.50, it is mandatory to use the `'https://card-fields.paymentiq.io/1.1.1/index.html'` as `hostedfieldsurl` value for **production** environments. Please update your configurations accordingly to avoid potential disruptions.
 >
-> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.51/index.html'` and well as *all versions previous to 1.0.50* **will be deprecated starting 15 March 2025**. Please note that using older versions and the old domain may expose your system to potential risks.
+> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.51/index.html'` and well as *all versions previous to 1.0.50* **will be deprecated starting 15 March 2025**. Please note that using older versions and the old domain may expose your system to potential risks. Starting with version 1.1.1, **hostedpages** domain will not be used anymore.
 > 
 > This change is meant to enhance security and future compliance with the new requirements in the Payment Card Industry Data Security Standards. The old domain is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
 > 
@@ -75,10 +75,12 @@ Expiry: `cc-exp`
 
 
 #### HostedFields
-HostedFields in turn will expose three functions
+HostedFields in turn will expose these functions
 * setup
 * get
 * reset
+* setClickToPayTransactionAmount
+* clickToPayCheckout
 
 **setup**
 
@@ -87,7 +89,7 @@ Setup is the first function you will call. It takes a config-object as its only 
 ````js
 {
     merchantId: 123456789,
-    hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.51/index.html',
+    hostedfieldsurl: 'https://card-fields.paymentiq.io/1.1.1/index.html',
     fields: my_fields, //fields you've generated using the Field-constructor
     renderMode: 'single', // defaults to 'multiple', separate iframes per field
     service: 'payment_method_service', // service of the payment method. Not mandatory (AstropayCard requires this)
@@ -96,7 +98,21 @@ Setup is the first function you will call. It takes a config-object as its only 
     autoFocusNext: true,
     onLoadCallback: () => someFunction,
     onCardBrandChangeCallback: ({ cardBrand: string }) => unknown,
-    el = A domElement to render the hosted fields in
+    el: A domElement to render the hosted fields in,
+    // Set the config from below if need to integrate ClickToPay
+    // The full list of attributes can be seen here: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-properties
+    // You can override only these attributes in Hosted Fields. These are the default values:
+    clickToPayAttributes: {
+        locale: "en_US",
+        sandbox: "true", // Make sure to set it "false" in production
+    },
+    // See the full config here: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide#scheme-specific-configuration
+    clickToPayConfig: "<ClickToPayConfig>", 
+    onRequestIframeExpandCallback: (recommendedHeight: number) => unknown,  
+    onCancelIframeExpandCallback: () => unkown, 
+    // Response type here: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-respons
+    onClickToPayCheckoutSuccessCallback: (response) => uknown, 
+    onClickToPayCheckoutErrorCallback: (error) => unkown, 
 }
 ````
 
@@ -128,13 +144,44 @@ and will return the detected **cardBrand**(e.g. visa, mastercard, etc.).
 
 This is usually used for dynamic credit card flow handling based on the card brand(e.g. for ClickToPay).
 
+**clickToPayAattributes**
+The attributes passed to the ClickToPay instance.
+
+**clickToPayConfig**
+The config passed to the ClickToPay instance.
+
+**onRequestIframeExpandCallback**
+This callback is triggered when the clickToPayCheckout call is performed to inform the integrator that 
+the iframe height should be changed to the **recommendedHeight** and hide all the other visible UI elements 
+to make room for the ClickToPay iframe to expand.
+
+**onCancelIframeExpandCallback**
+This callback is triggered when the ClickToPay checkout has finised to inform the integrator that 
+the iframe height should be restored and show all the other previously hidden UI elements.
+
+**onClickToPayCheckoutSuccessCallback**
+The callback triggered when receive a success response after a ClickToPay checkout.
+
+**onClickToPayCheckoutErrorCallback**
+The callback triggered when receive an error after a ClickToPay cehckout.
+
 **Possible values for hostedfieldsurl:**
 
-For test environments use: `'https://test-hostedpages.paymentiq.io/1.0.51/index.html'`.
+For test environments use: `'https://test-hostedpages.paymentiq.io/1.1.1/index.html'`.
 
-For production environments use `'https://card-fields.paymentiq.io/1.0.51/index.html'`.
+For production environments use `'https://card-fields.paymentiq.io/1.1.1/index.html'`.
 
-**Available versions for `'https://card-fields.paymentiq.io/1.0.51/index.html'`(where the part 1.0.51 represents the version number):**
+**Available versions for `'https://card-fields.paymentiq.io/1.1.1/index.html'`(where the part 1.1.1 represents the version number):**
+- 1.1.1
+- 1.0.61
+- 1.0.60
+- 1.0.58
+- 1.0.57
+- 1.0.56
+- 1.0.55
+- 1.0.54
+- 1.0.53
+- 1.0.52
 - 1.0.51
 - 1.0.50
 
@@ -177,6 +224,22 @@ iframe.src = hostedfieldsurl + '?mid=' + merchantId;
 var container = document.querySelector(el);
 ````
 Lastly eventListener are registered to the iframe so that it picks up postMessage events.
+
+
+**setClickToPayTransactionAmount** *(used for ClickToPay integration)*
+
+It's used when the transaction amount should be dynamically changed.
+
+Set ClickToPay transaction amount according to:  
+https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide
+
+
+**clickToPayCheckout** *(used for ClickToPay integration)*
+    
+Perform ClickToPay checkout according to:  
+https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-api
+
+
 
 ## Styling
 Styling will mainly be handled buy the application using the hosted-fields. Each field will have some basic styling but the layout will have to be supplied.
@@ -240,7 +303,7 @@ let fields = fieldConfig.map(conf => {
 ````js
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.51/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.1.1/index.html',
   fields: fields,
   service: 'some service',
   styles: '* .hosted-input-container .input-container input { color: green; }',
@@ -387,7 +450,7 @@ let fields = fieldConfig.map(conf => {
 
 HostedFields.setup({
   merchantId: 123456789,
-  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.0.51/index.html',
+  hostedfieldsurl: 'https://card-fields.paymentiq.io/1.1.1/index.html',
   fields: fields,
   service: 'some service',
   styles: '.hosted-input-container .input-container input { color: red; }',
@@ -413,7 +476,7 @@ Overview of Change:
 We have recently updated the domain used for our card fields to enhance security and compliance with current standards. The old domain, while PCI DSS compliant, is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
 
 #### New Domain:
-Domain: `card-fields.paymentiq.io/1.0.51/`
+Domain: `card-fields.paymentiq.io/1.1.1/`
 
 #### Compatibility Note:
 Supported Versions: This domain supports versions starting with 1.0.50 and above. Make sure your implementation is updated to at least this version to ensure compatibility.
