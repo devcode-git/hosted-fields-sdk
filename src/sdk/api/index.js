@@ -41,8 +41,10 @@ var onClickToPayCheckoutErrorCallback;
 var autoFocusNext;
 // Keep track of number of loaded fields
 var onLoadCounter = 0;
+// Allowed postMessage origins
+var allowedOrigins = [];
 // This window.
-var window = document.parentWindow || document.defaultView;
+var window = document.parentWindow || document.defaultView;
 /**
  * ClickToPay attributes for the ClickToPay instance
  * @param locale default: "en_US"
@@ -55,6 +57,16 @@ var clickToPayConfig;
  
 const recommendedExpandedHeight = 850; // in px
 const iframeAllowPermissions = 'payment';
+
+function extractOrigin (url) {
+    try {
+        var anchor = document.createElement('a')
+        anchor.href = url
+        return anchor.protocol + '//' + anchor.host
+    } catch (error) {
+        return null
+    }
+}
 
 function setup (config) {
     merchantId = config.merchantId;
@@ -74,6 +86,12 @@ function setup (config) {
     el = config.el;
     clickToPayConfig = config.clickToPayConfig;
     clickToPayAttributes = config.clickToPayAttributes;
+    allowedOrigins = [];
+
+    var hostedFieldsOrigin = extractOrigin(hostedfieldsurl)
+    if (hostedFieldsOrigin) {
+        allowedOrigins.push(hostedFieldsOrigin)
+    }
 
     // Create a single iframe for all the fields (single) or create an iframe per field (multiple)
     if (renderMode && renderMode === 'single') {
@@ -86,12 +104,11 @@ function setup (config) {
 }
 
 function validateOrigin (origin) {
-    const validOrigins = [
-        origin,
+    const fallbackOrigins = [
         'https://test-hostedpages.paymentiq.io',
-        'https://hostedpages.paymentiq.io',
         'https://card-fields.paymentiq.io'
     ]
+    const validOrigins = [...allowedOrigins, ...fallbackOrigins]
     return validOrigins.indexOf(origin) > -1
 }
 

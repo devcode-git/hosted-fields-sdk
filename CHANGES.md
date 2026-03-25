@@ -1,3 +1,7 @@
+### 1.3.1
+- Remove hostedpages domain support
+- Update readme
+
 #### 1.3.0
 - Add ClickToPay integration support
 - Provide high-level types with index.d.ts ([Issue 21](https://github.com/devcode-git/hosted-fields-sdk/issues/21))
@@ -59,7 +63,7 @@ the onLoadCallback never to be triggered.
 - Reset shouldn't be an action, it should only be a method that the parent-application can call
 
 #### 1.0.7
-- Added reset() as a method to HostedFields. Resets the targets to an empty array. Necessary to run before running a new setupContent to avoid duplicates.
+- Added reset() as a method to HostedFields. Resets the targets to an empty array. Necessary to run before running a new setupContent to avoid duplicates
 
 #### 1.0.6
 - Updated readme
@@ -78,7 +82,7 @@ the onLoadCallback never to be triggered.
 
 #### 1.0.1
 - Using 2.6.0 of uglify-js since earlier versions had a security-gap
-- Docs showing test-environment for hosted-fields.
+- Docs showing test-environment for hosted-fields
 
 #### 1.0.0
-- initial commit, basic features for generating fields.
+- initial commit, basic features for generating fields
