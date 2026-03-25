@@ -28,6 +28,11 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: Publish Beta to npm
+        run: npm publish --tag beta
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npm publish
