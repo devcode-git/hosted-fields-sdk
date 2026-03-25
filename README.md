@@ -5,9 +5,9 @@ Hosted fields SDK is a toolkit that allows you generate a form/set of fields. It
 > [!CAUTION]
 > **Migration and Deprecation Notice:** Starting from version 1.0.50, it is mandatory to use the `'https://card-fields.paymentiq.io/1.1.1/index.html'` as `hostedfieldsurl` value for **production** environments. Please update your configurations accordingly to avoid potential disruptions.
 >
-> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.51/index.html'` and well as *all versions previous to 1.0.50* **will be deprecated starting 15 March 2025**. Please note that using older versions and the old domain may expose your system to potential risks. Starting with version 1.1.1, **hostedpages** domain will not be used anymore.
+> The old hostedfieldsurl: `'https://hostedpages.paymentiq.io/1.0.51/index.html'` and well as *all versions previous to 1.0.50* **are deprecated**. Please note that using older versions and the old domain may expose your system to potential risks. Starting with version 1.1.1, **hostedpages** domain will not be used anymore.
 > 
-> This change is meant to enhance security and future compliance with the new requirements in the Payment Card Industry Data Security Standards. The old domain is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
+> This change is meant to enhance security and future compliance with the new requirements in the Payment Card Industry Data Security Standards. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
 > 
 > Obs. **The new domain supports versions starting with 1.0.50 and above.** Make sure your implementation is updated to at least this version to ensure compatibility.
 > 
@@ -185,8 +185,8 @@ For production environments use `'https://card-fields.paymentiq.io/1.1.1/index.h
 - 1.0.51
 - 1.0.50
 
-> [!WARNING]  
-> Please note that **previous versions**(older than 1.0.50), as well as old domain name ***hostedpages* will be deprecated and must be updated by 15 March 2025**.
+> [!NOTE]  
+> Versions older than 1.0.50 are no longer supported.
 
 
 **get**
@@ -468,12 +468,10 @@ If any errors are detected, an error message will be returned as the value of th
 
 ````
 
-### Migration Notice
+### Notes
 
-#### Domain Change Explanation and Disclaimer
-
-Overview of Change:
-We have recently updated the domain used for our card fields to enhance security and compliance with current standards. The old domain, while PCI DSS compliant, is scheduled for deprecation. We advise all users to transition to the new domain as soon as possible to maintain compliance and benefit from improved security measures.
+#### Minimum Supported Version
+Version 1.0.50 or later is required. Older versions are no longer supported.
 
 #### New Domain:
 Domain: `card-fields.paymentiq.io/1.1.1/`
@@ -490,7 +488,7 @@ Upgrade Your Version: Ensure your integration uses version 1.0.50 or later.
 Migrate to the New Domain: Begin using the new domain by updating your configurations accordingly.
 
 #### Deprecation Timeline:
-Old Domain: The old domain will be deprecated on 15 March, after which it will no longer be supported.
+Old Domain: The old domain is deprecated and no longer supported.
 
 #### Additional Notes:
 Reach out to our support team if you encounter any issues during the transition or require further assistance.
