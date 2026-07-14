@@ -79,6 +79,7 @@ HostedFields in turn will expose these functions
 * setup
 * get
 * reset
+* updateStyles
 * setClickToPayTransactionAmount
 * clickToPayCheckout
 
@@ -224,6 +225,18 @@ iframe.src = hostedfieldsurl + '?mid=' + merchantId;
 var container = document.querySelector(el);
 ````
 Lastly eventListener are registered to the iframe so that it picks up postMessage events.
+
+
+**updateStyles**
+
+If you want to change the custom styles of already rendered hosted fields you can call
+```js
+HostedFields.updateStyles('any custom styles you wish to include')
+```
+It takes the same styles string as the `styles` property of the setup config and applies it to all rendered fields at runtime, without reloading the iframes. Works for both `single` and `multiple` renderMode.
+
+> [!NOTE]
+> Runtime style updates require hosted fields version 1.1.8 or above (the `hostedfieldsurl` version). On older versions the update is ignored and the styles from setup remain.
 
 
 **setClickToPayTransactionAmount** *(used for ClickToPay integration)*

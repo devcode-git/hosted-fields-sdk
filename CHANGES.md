@@ -1,3 +1,6 @@
+### 1.3.2
+- Add `HostedFields.updateStyles(styles)` to apply new custom styles at runtime without reloading the iframes (requires hosted fields 1.1.8+)
+
 ### 1.3.1
 - Remove hostedpages domain support
 - Update readme

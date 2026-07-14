@@ -26,5 +26,7 @@ export const actions = {
     requestIframeExpand: 'requestIframeExpand',
     // Cancel iframe expand
     cancelIframeExpand: 'cancelIframeExpand',
+    // Apply new custom styles to the hosted fields at runtime, without reloading the iframes.
+    updateStyles: 'updateStyles',
 }
 Object.freeze(actions)

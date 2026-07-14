@@ -38,6 +38,12 @@ declare module "hosted-fields-sdk" {
     reset(): void;
 
     /**
+     * Applies new custom styles to the rendered hosted fields at runtime, without reloading the iframes.
+     * Takes the same styles string as the `styles` property of the setup config.
+     */
+    updateStyles(styles: string): void;
+
+    /**
      * Updates the Click to Pay transaction amount.
      */
     setClickToPayTransactionAmount(transactionAmount: any): void;

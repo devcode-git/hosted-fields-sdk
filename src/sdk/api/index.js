@@ -123,6 +123,13 @@ function reset () {
   clickToPayIframe = undefined
 }
 
+function updateStyles (newStyles) {
+    styles = newStyles;
+    targets.forEach((target) => {
+        target.target.postMessage({action: actions.updateStyles, styles: styles}, hostedfieldsurl);
+    })
+}
+
 function assertClickToPayIsSet () {
     if(!clickToPayConfig) {
         console.error('ClickToPay config not set')
@@ -359,6 +366,8 @@ export const HostedFields = {
     get,
     // reset the current targets
     reset,
+    // Apply new custom styles to the rendered hosted fields at runtime, without reloading the iframes.
+    updateStyles,
     // Set Click To Pay transaction amount according to: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide
     setClickToPayTransactionAmount,
     // Perform ClickToPay checkout according to: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-api
