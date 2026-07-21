@@ -236,7 +236,7 @@ HostedFields.updateStyles('any custom styles you wish to include')
 It takes the same styles string as the `styles` property of the setup config and applies it to all rendered fields at runtime, without reloading the iframes. Works for both `single` and `multiple` renderMode.
 
 > [!NOTE]
-> Runtime style updates require hosted fields version 1.1.8 or above (the `hostedfieldsurl` version). On older versions the update is ignored and the styles from setup remain.
+> Runtime style updates require hosted fields version 1.1.9 or above (the `hostedfieldsurl` version). On older versions the update is ignored and the styles from setup remain.
 
 
 **setClickToPayTransactionAmount** *(used for ClickToPay integration)*
