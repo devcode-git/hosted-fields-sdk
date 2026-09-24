@@ -1,3 +1,8 @@
+### 1.3.3
+- Origin validation now accepts messages only from the origin of the configured `hostedfieldsurl`. The two built-in fallback origins are removed, so `hostedfieldsurl` must point at the host the iframes actually load from
+- Remove repository, author and brand keywords from package metadata, and publish only `dist` and `index.d.ts`
+- Update readme
+
 ### 1.3.2
 - Add `HostedFields.updateStyles(styles)` to apply new custom styles at runtime without reloading the iframes (requires hosted fields 1.1.9+)
 
