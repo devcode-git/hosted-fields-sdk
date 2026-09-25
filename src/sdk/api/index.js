@@ -104,12 +104,7 @@ function setup (config) {
 }
 
 function validateOrigin (origin) {
-    const fallbackOrigins = [
-        'https://test-hostedpages.paymentiq.io',
-        'https://card-fields.paymentiq.io'
-    ]
-    const validOrigins = [...allowedOrigins, ...fallbackOrigins]
-    return validOrigins.indexOf(origin) > -1
+    return allowedOrigins.indexOf(origin) > -1
 }
 
 function get () {
