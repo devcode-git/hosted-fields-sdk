@@ -41,15 +41,19 @@ const pattern = new RegExp(FORBIDDEN.join('|'), 'gi');
 const failures = [];
 
 for (const file of files) {
-  let hits;
+  let contents;
   try {
-    hits = readFileSync(file, 'utf-8').match(pattern);
+    contents = readFileSync(file, 'utf-8');
   } catch (error) {
     // A file that ships but cannot be read is a hole in the guard, not something to skip.
     console.error(`Could not read ${file}: ${error.message}`);
     process.exit(2);
   }
-  if (hits) failures.push({ file, hits });
+  // The packed path counts as well as the contents: it becomes the consumer's import path, so
+  // `dist/paymentiq.js` carries the name whatever the file says. Relative, as npm lists it, since
+  // the absolute path runs through a checkout directory nobody chose.
+  const hits = [...(file.match(pattern) ?? []), ...(contents.match(pattern) ?? [])];
+  if (hits.length) failures.push({ file, hits });
 }
 
 if (failures.length) {

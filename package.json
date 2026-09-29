@@ -25,7 +25,8 @@
     "build:cjs": "babel src --out-dir dist --env-name cjs",
     "uglify": "recursive-uglifyjs dist",
     "build:esm": "babel src --out-dir dist/esm --extensions '.js' --env-name esm",
-    "check:brand": "node scripts/check-brand-package.mjs"
+    "check:brand": "node scripts/check-brand-package.mjs",
+    "check:brand:test": "node scripts/check-brand-package.test.mjs"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
