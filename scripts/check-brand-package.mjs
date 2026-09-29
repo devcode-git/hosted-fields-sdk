@@ -12,15 +12,32 @@
 import { execFileSync } from 'child_process';
 import { readFileSync } from 'fs';
 
-// Former and current company names, plus the two paymentiq.io tenants.
-const FORBIDDEN = ['paymentiq', 'worldline', 'devcode', 'bambora', 'casumo', 'mrgreen'];
+/*
+  Former and current company names, plus the two paymentiq.io tenants, each split where a human would
+  space it. Matching the closed-up spelling alone lets the prose form through: `Payment IQ` in a
+  README, `Mr Green` in a comment, `payment-iq` in a filename. The repo already writes it both ways,
+  for example `// The payment iq mid` in src/sdk/api/index.js.
+*/
+const FORBIDDEN = [
+  ['payment', 'iq'],
+  ['world', 'line'],
+  ['dev', 'code'],
+  ['bambora'],
+  ['casumo'],
+  ['mr', 'green'],
+];
 
-// Word characters only, so joining them into an alternation cannot introduce a metacharacter.
-const malformed = FORBIDDEN.filter((name) => !/^\w+$/.test(name));
+// Whitespace, underscore, dot or hyphen between the parts, in any number, including none.
+const SEPARATOR = '[\\s_.-]*';
+
+// Word characters only, so joining the parts into an alternation cannot introduce a metacharacter.
+const malformed = FORBIDDEN.flat().filter((part) => !/^\w+$/.test(part));
 if (malformed.length) {
-  console.error(`FORBIDDEN entries must be word characters only: ${malformed.join(', ')}`);
+  console.error(`FORBIDDEN parts must be word characters only: ${malformed.join(', ')}`);
   process.exit(2);
 }
+
+const names = FORBIDDEN.map((parts) => parts.join(''));
 
 let files;
 try {
@@ -37,7 +54,7 @@ if (!files.length) {
   process.exit(2);
 }
 
-const pattern = new RegExp(FORBIDDEN.join('|'), 'gi');
+const pattern = new RegExp(FORBIDDEN.map((parts) => parts.join(SEPARATOR)).join('|'), 'gi');
 const failures = [];
 
 for (const file of files) {
@@ -67,7 +84,7 @@ if (failures.length) {
     const summary = [...counts].map(([name, n]) => `${name} x${n}`).join(', ');
     console.error(`  ${file}: ${summary}`);
   }
-  console.error(`\nScanned ${files.length} packed file(s) for: ${FORBIDDEN.join(', ')}`);
+  console.error(`\nScanned ${files.length} packed file(s) for: ${names.join(', ')}, spaced or hyphenated too`);
   process.exit(1);
 }
 

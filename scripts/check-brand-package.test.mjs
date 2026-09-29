@@ -53,6 +53,12 @@ const cases = [
   // Copilot raised this: the packed path becomes the consumer's import path.
   ['a company name in the packed path fails', { 'dist/paymentiq.js': 'var a=1' }, SHIPS_DIST, 1],
   ['case is ignored', { 'dist/index.js': 'PaymentIQ' }, SHIPS_DIST, 1],
+  // Ross on #48: matching only the closed-up spelling let the prose form through.
+  ['a spaced company name fails', { 'dist/index.js': '// The payment iq mid' }, SHIPS_DIST, 1],
+  ['a hyphenated company name fails', { 'dist/index.js': 'payment-iq' }, SHIPS_DIST, 1],
+  ['a spaced tenant name fails', { 'dist/index.js': 'Powered by Mr Green' }, SHIPS_DIST, 1],
+  ['a dotted company name fails', { 'dist/index.js': 'world.line' }, SHIPS_DIST, 1],
+  ['a spaced name in the packed path fails', { 'dist/payment-iq.js': 'var a=1' }, SHIPS_DIST, 1],
   // The point of scanning `npm pack` rather than the tree: `files` decides what ships.
   [
     'a name in a file that does not ship passes',

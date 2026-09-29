@@ -1,3 +1,6 @@
+### 1.3.5
+- Build guard: also catches the spaced and hyphenated spellings of each company name, for example `Payment IQ` or `payment-iq`
+
 ### 1.3.4
 - Build guard: the published package is scanned for company names before `npm publish`, and the guard has its own regression cases. No change to shipped code; `dist` and `index.d.ts` are byte-identical to 1.3.3
 
