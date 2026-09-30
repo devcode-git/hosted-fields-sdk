@@ -28,6 +28,14 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      # The guard's own regression cases, so a refactor that silently stops catching names fails here.
+      - name: Test the brand guard
+        run: node scripts/check-brand-package.test.mjs
+
+      # Runs on pull requests too, so a branded name is caught before it can be merged and published.
+      - name: Assert the package carries no company name
+        run: node scripts/check-brand-package.mjs
+
       - name: Publish to npm
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: npm publish

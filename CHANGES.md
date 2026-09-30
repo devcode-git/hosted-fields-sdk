@@ -1,3 +1,9 @@
+### 1.3.5
+- Build guard: also catches the spaced and hyphenated spellings of each company name, for example `Payment IQ` or `payment-iq`
+
+### 1.3.4
+- Build guard: the published package is scanned for company names before `npm publish`, and the guard has its own regression cases. No change to shipped code; `dist` and `index.d.ts` are byte-identical to 1.3.3
+
 ### 1.3.3
 - Origin validation now accepts messages only from the origin of the configured `hostedfieldsurl`. The two built-in fallback origins are removed, so `hostedfieldsurl` must point at the host the iframes actually load from
 - Remove repository, author and brand keywords from package metadata, and publish only `dist` and `index.d.ts`

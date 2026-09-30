@@ -1,6 +1,6 @@
 {
   "name": "hosted-fields-sdk",
-  "version": "1.3.3",
+  "version": "1.3.5",
   "description": "Hosted fields sdk",
   "main": "dist/index.js",
   "types": "index.d.ts",
@@ -24,7 +24,9 @@
     "build": "rimraf dist && npm run eslint && npm run build:cjs && npm run build:esm && npm run uglify",
     "build:cjs": "babel src --out-dir dist --env-name cjs",
     "uglify": "recursive-uglifyjs dist",
-    "build:esm": "babel src --out-dir dist/esm --extensions '.js' --env-name esm"
+    "build:esm": "babel src --out-dir dist/esm --extensions '.js' --env-name esm",
+    "check:brand": "node scripts/check-brand-package.mjs",
+    "check:brand:test": "node scripts/check-brand-package.test.mjs"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
