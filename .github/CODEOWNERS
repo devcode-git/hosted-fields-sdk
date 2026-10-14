@@ -1,0 +1,14 @@
+# Frontend technical owner for this repository. Code owners are requested as
+# reviewers for dependency, CI, build and architecture changes only; they are
+# not a required approval. Rotating the owner means changing the team members.
+
+/package.json                @devcode-git/fe-owner-hosted-fields
+/package-lock.json           @devcode-git/fe-owner-hosted-fields
+/.nvmrc                      @devcode-git/fe-owner-hosted-fields
+/.github/                    @devcode-git/fe-owner-hosted-fields
+/scripts/                    @devcode-git/fe-owner-hosted-fields
+/.babelrc                    @devcode-git/fe-owner-hosted-fields
+/.eslintrc                   @devcode-git/fe-owner-hosted-fields
+/.npmignore                  @devcode-git/fe-owner-hosted-fields
+/index.d.ts                  @devcode-git/fe-owner-hosted-fields
+/.github/CODEOWNERS          @devcode-git/fe-owner-hosted-fields
