@@ -14,6 +14,8 @@ export const actions = {
     formSubmit: 'formSubmit',
     // Received when the hosted fields credit card number changed and returs the detected card brand.
     cardBrandChange: 'cardBrandChange',
+    // Sent to the other fields when the card brand changes, so a security code field in its own iframe can check the code's length.
+    setCardBrand: 'setCardBrand',
     // Set click to pay transaction amount acordin to: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-config-guide
     setClickToPayTransactionAmount: 'setClickToPayTransactionAmount',
     // ClickToPay checkout: https://srci-docs.prod.srci.cloud.netcetera.com/sdk-checkout-api

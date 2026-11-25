@@ -176,6 +176,7 @@ function eventHandler ($event) {
                 sendCallback()
                 break;
             case actions.cardBrandChange:
+                shareCardBrand($event.data.cardBrand, $event.source)
                 onCardBrandChangeCallback?.({cardBrand: $event.data.cardBrand })
                 break;
             case actions.requestIframeExpand:
@@ -199,6 +200,15 @@ function eventHandler ($event) {
     } else {
         console.error('Received message from invalid origin', $event.origin)
     }
+}
+
+// The valid security code length depends on the card brand. With renderMode 'multiple' the
+// card number and the security code are in separate iframes, so pass the brand on.
+function shareCardBrand (cardBrand, source) {
+    targets.forEach((target) => {
+        if (!target || target.target === source) return
+        target.target.postMessage({action: actions.setCardBrand, cardBrand: cardBrand}, hostedfieldsurl);
+    })
 }
 
 function sendCallback () {

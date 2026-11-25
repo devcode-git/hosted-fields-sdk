@@ -33,7 +33,8 @@ You define what fields you wish to include in your form yourself. The SDK gives 
     visible: visible,
     required: required,
     noAttributeValueFormatting: true, (not mandatory, defaults to false)
-    autocomplete: autocomplete
+    autocomplete: autocomplete,
+    cardBrand: cardBrand (not mandatory, CVV field only)
 }
 
 ````
@@ -52,6 +53,22 @@ Recommended values for autocomplete are:
 Creditcard number: `cc-number`
 CVC: `cc-csc`
 Expiry: `cc-exp`
+
+#### Security code length
+The CVV field accepts a 3 or 4 digit security code. Once the card brand is known, the field narrows that:
+
+* Visa and Mastercard: only a 3-digit code
+* American Express: only a 4-digit code
+* Any other brand, or a card whose brand cannot be determined: 3 or 4 digits
+
+A code of the wrong length fails validation, so its field is returned in `errors` when you call `get`.
+
+The brand comes from the card number field. With renderMode `multiple` the SDK passes it on to the CVV field's iframe.
+
+For a saved card there is no card number field, so set `cardBrand` on the CVV field to the card's brand, for example `visa`, `mastercard` or `amex`. The card types on saved accounts, such as `Visa`, `MasterCard` or `American Express`, are accepted too.
+
+> [!NOTE]
+> The length check needs hosted fields version 1.1.12 or later (the `hostedfieldsurl` version). Passing the brand between iframes with renderMode `multiple` also needs SDK version 1.3.6 or later.
 
 #### The type-property can be one of the following:
 ````
