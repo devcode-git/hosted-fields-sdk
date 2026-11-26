@@ -13,8 +13,9 @@ export class Field {
    * @argument required If the field is required or not (default true)
    * @argument noAttributeValueFormatting Due to backwards compability, the flag noAttributeValueFormatting needs to be set to true to make autofill work
    * @argument autocomplete What should the field use as autofill value (cc-number, cc-csc, cc-exp)
+   * @argument cardBrand For a CVV field of a saved card: the card's brand (ex: visa, mastercard, amex), which sets the valid security code length
    */
-  constructor (type, id, name, label, helpKey = '', errorKey = '', visible = true, required = true, noAttributeValueFormatting = false, autocomplete = '') {
+  constructor (type, id, name, label, helpKey = '', errorKey = '', visible = true, required = true, noAttributeValueFormatting = false, autocomplete = '', cardBrand = undefined) {
     this.type = type
     this.id = id
     this.name = name
@@ -25,6 +26,7 @@ export class Field {
     this.required = required
     this.noAttributeValueFormatting = noAttributeValueFormatting
     this.autocomplete = autocomplete
+    if (cardBrand) this.cardBrand = cardBrand
   }
 }
 

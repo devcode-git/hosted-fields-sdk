@@ -1,3 +1,7 @@
+### 1.3.6
+- Pass the card brand from the card number field to the other fields with renderMode `multiple`, so a security code field in its own iframe accepts only 3 digits on Visa and Mastercard and only 4 on American Express (requires hosted fields 1.1.12+)
+- Add an optional `cardBrand` to `Field`, for the CVV field of a saved card whose number is not entered in the form
+
 ### 1.3.5
 - Build guard: also catches the spaced and hyphenated spellings of each company name, for example `Payment IQ` or `payment-iq`
 

@@ -43,6 +43,8 @@ var autoFocusNext;
 var onLoadCounter = 0;
 // Allowed postMessage origins
 var allowedOrigins = [];
+// Latest card brand from the card number field, passed on to the other fields.
+var cardBrand;
 // This window.
 var window = document.parentWindow || document.defaultView;
 /**
@@ -87,6 +89,7 @@ function setup (config) {
     clickToPayConfig = config.clickToPayConfig;
     clickToPayAttributes = config.clickToPayAttributes;
     allowedOrigins = [];
+    cardBrand = undefined;
 
     var hostedFieldsOrigin = extractOrigin(hostedfieldsurl)
     if (hostedFieldsOrigin) {
@@ -116,6 +119,7 @@ function get () {
 function reset () {
   targets = []
   clickToPayIframe = undefined
+  cardBrand = undefined
 }
 
 function updateStyles (newStyles) {
@@ -176,6 +180,7 @@ function eventHandler ($event) {
                 sendCallback()
                 break;
             case actions.cardBrandChange:
+                shareCardBrand($event.data.cardBrand, $event.source)
                 onCardBrandChangeCallback?.({cardBrand: $event.data.cardBrand })
                 break;
             case actions.requestIframeExpand:
@@ -199,6 +204,24 @@ function eventHandler ($event) {
     } else {
         console.error('Received message from invalid origin', $event.origin)
     }
+}
+
+// The valid security code length depends on the card brand. With renderMode 'multiple' the
+// card number and the security code are in separate iframes, so pass the brand on.
+function shareCardBrand (newCardBrand, source) {
+    // Only a field of the current setup speaks for the card: an iframe left from an earlier one does not.
+    var isCurrentField = targets.some((target) => target && target.target === source)
+    if (!isCurrentField) return
+
+    cardBrand = newCardBrand
+    targets.forEach((target) => {
+        if (!target || target.target === source) return
+        sendCardBrand(target.target)
+    })
+}
+
+function sendCardBrand (targetWindow) {
+    targetWindow.postMessage({action: actions.setCardBrand, cardBrand: cardBrand}, hostedfieldsurl);
 }
 
 function sendCallback () {
@@ -290,6 +313,8 @@ function createIframeProxy (field, iframe) {
         fields: fieldsObj,
         service: service,
     }, hostedfieldsurl);
+    // A field that loads, or reloads, after the brand was detected would otherwise never get it.
+    if (cardBrand !== undefined) sendCardBrand(iframe.contentWindow)
 
     onLoadCounter++
     if (onLoadCounter === fields.length && onLoadCallback) {

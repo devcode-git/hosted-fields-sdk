@@ -124,6 +124,12 @@ declare module "hosted-fields-sdk" {
      */
     autocomplete: string;
 
+    /**
+     * For a CVV field of a saved card: the card's brand (e.g., "visa", "mastercard", "amex").
+     * Visa and Mastercard then accept only a 3-digit security code, American Express only a 4-digit one.
+     */
+    cardBrand?: string;
+
     constructor(
       type: keyof typeof FieldTypes,
       id: string,
@@ -134,7 +140,8 @@ declare module "hosted-fields-sdk" {
       visible?: boolean,
       required?: boolean,
       noAttributeValueFormatting?: boolean,
-      autocomplete?: string
+      autocomplete?: string,
+      cardBrand?: string
     );
   }
 }
