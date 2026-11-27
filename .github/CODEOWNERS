@@ -12,4 +12,7 @@
 /.npmignore                  @devcode-git/fe-owner-hosted-fields
 /index.d.ts                  @devcode-git/fe-owner-hosted-fields
 /README.md                   @devcode-git/fe-owner-hosted-fields
+/AGENTS.md                   @devcode-git/fe-owner-hosted-fields
+/CLAUDE.md                   @devcode-git/fe-owner-hosted-fields
+/docs/                       @devcode-git/fe-owner-hosted-fields
 /.github/CODEOWNERS          @devcode-git/fe-owner-hosted-fields
