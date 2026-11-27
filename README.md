@@ -472,3 +472,8 @@ Fields that are to be encrypted (Card number + CVV) will return the encrypted va
 If any errors are detected, an error message will be returned as the value of that field, prefixed with ERROR
 
 ````
+
+## Contributing
+
+`AGENTS.md` in the repository describes how the SDK is built and what must not change;
+`docs/releasing.md` describes how a version is published. Release notes are in `CHANGES.md`.
